@@ -19,14 +19,9 @@ public class Main  {
 
         Member member = new Member( "Billy Mobby", "Grey", "billie.mobby.grey@hollywood.biz" );
 
-        try {
-            memberRepo.save(member);
-        }
 
-        catch(Exception e) {
+        Optional<Member> memberOptional = memberRepo.findByEmail( "simon.toivola@mail.com" );
 
-        }
-
-
+        memberOptional.ifPresent( IO::println );
     }
 }
