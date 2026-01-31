@@ -12,18 +12,19 @@ import java.util.Optional;
 public class MemberRepoImpl implements MemberRepo {
 
     public Optional<Member> findByEmail(String email) {
-        Member member = null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
-            member = (Member) session.createQuery("from Member where email = :email")
-                    .setParameter("email", email)
-                    .getSingleResult();
-        } catch (Exception e) {
 
-        } finally {
-            session.close();
+        try ( Session session = HibernateUtil.getSessionFactory().openSession() ) {
+
+            Member member = (Member) session.createQuery("FROM Member WHERE email = :email")
+                                            .setParameter("email", email).uniqueResult();
+
+            return Optional.ofNullable(member);
         }
-        return Optional.ofNullable(member);
+
+        catch ( Exception e ) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
     }
 
     @Override
@@ -32,77 +33,110 @@ public class MemberRepoImpl implements MemberRepo {
         if( findByEmail( entity.getEmail()).isPresent() )
             throw new EmailAlreadyTakenException( "email = " + entity.getEmail() );
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
 
-        try {
+        try( Session session = HibernateUtil.getSessionFactory().openSession() ) {
+
             transaction = session.beginTransaction();
-            session.save( entity );
+
+            session.persist( entity );
             transaction.commit();
         }
 
-        catch (Exception e) {
+        catch ( Exception e ) {
 
             if( transaction != null )
                 transaction.rollback();
         }
+    }
 
-        finally {
-            session.close();
+    @Override
+    public void update(Member entity) {
+
+        Transaction transaction = null;
+
+        try( Session session = HibernateUtil.getSessionFactory().openSession() ) {
+
+            transaction = session.beginTransaction();
+
+            session.merge( entity );
+            transaction.commit();
+        }
+
+        catch ( Exception e ) {
+
+            if( transaction != null )
+                transaction.rollback();
         }
     }
 
     @Override
     public Optional<Member> findById(Long id) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
 
-        Member memberWithId = session.get( Member.class, id );
+        try ( Session session = HibernateUtil.getSessionFactory().openSession() ) {
+            Member member = session.get(Member.class, id);
+            return Optional.ofNullable( member );
+        }
 
-        transaction.commit();
-        session.close();
-
-        return Optional.ofNullable( memberWithId );
+        catch ( Exception e ) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
     }
 
     @Override
     public List<Member> findAll() {
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
+        try( Session session = HibernateUtil.getSessionFactory().openSession() ) {
 
-        List<Member> allMembers = session.createQuery( "from Member" , Member.class).getResultList();
+            return session.createQuery("from Member").getResultList();
+        }
 
-        transaction.commit();
-        session.close();
-
-        return allMembers;
+        catch ( Exception e ) {
+            return List.of();
+        }
     }
 
     @Override
     public void delete(Member entity) {
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
+        Transaction transaction = null;
 
-        session.delete( entity );
+        try( Session session = HibernateUtil.getSessionFactory().openSession() ) {
 
-        transaction.commit();
-        session.close();
+            transaction = session.beginTransaction();
+            session.delete( entity );
+            transaction.commit();
+        }
+
+        catch ( Exception e ) {
+
+            if( transaction != null )
+                transaction.rollback();
+        }
     }
 
     @Override
     public void deleteById(Long id) {
 
-        findById( id ).ifPresent( memberWithId -> {
+        Transaction transaction = null;
 
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            Transaction transaction = session.beginTransaction();
+        try( Session session = HibernateUtil.getSessionFactory().openSession() ) {
+            transaction = session.beginTransaction();
 
-            session.delete( memberWithId );
+            Member member = session.get(Member.class, id);
+
+            if( member != null )
+                session.delete( member );
 
             transaction.commit();
-            session.close();
-        } );
+        }
+
+        catch (Exception e ) {
+            if( transaction != null )
+                transaction.rollback();
+            e.printStackTrace();
+        }
+
     }
 }

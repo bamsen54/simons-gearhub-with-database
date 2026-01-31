@@ -12,18 +12,26 @@ import org.hibernate.Transaction;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Main  {
 
     void main() {
         MemberRepoImpl memberRepo = new MemberRepoImpl();
-        RentalRepo rentalRepo = new RentalRepoImpl();
+
+
+        Member member = memberRepo.findById( 1L ).get();
+
+        member.setFirstName( "Simon" );
+
+        memberRepo.update( member );
 
 
 
-        Member member = new Member( "Billie Mobby", "Grey", "billie.mobby.grey@hollywood.biz" );
-        memberRepo.save( member );
+
+
+
 
 
 
