@@ -19,10 +19,10 @@ public class Rental {
     @Column(  nullable = false )
     Long rentalObjectId;
 
-    @Column(  nullable = false )
+    @Column(  nullable = false, columnDefinition = "DATETIME")
     LocalDateTime rentalDate;
 
-    @Column
+    @Column( precision = 0 )
     LocalDateTime returnDate;
 
     @ManyToOne
@@ -30,10 +30,9 @@ public class Rental {
     Member member;
 
     public Rental() {
-
     }
 
-    public Rental( RentalType rentalType, long rentalObjectId, LocalDateTime rentalDate, Member member ) {
+    public Rental( RentalType rentalType, Long rentalObjectId, LocalDateTime rentalDate, Member member ) {
         this.rentalType     = rentalType;
         this.rentalObjectId = rentalObjectId;
         this.rentalDate     = rentalDate;

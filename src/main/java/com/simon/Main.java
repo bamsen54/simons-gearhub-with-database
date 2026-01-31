@@ -1,27 +1,31 @@
 package com.simon;
 
 import com.simon.entity.Member;
+import com.simon.entity.Rental;
+import com.simon.entity.RentalType;
 import com.simon.repo.MemberRepoImpl;
+import com.simon.repo.RentalRepo;
+import com.simon.repo.RentalRepoImpl;
 import com.simon.util.HibernateUtil;
-import javafx.application.Application;
-import javafx.stage.Stage;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main  {
 
     void main() {
-
         MemberRepoImpl memberRepo = new MemberRepoImpl();
+        RentalRepo rentalRepo = new RentalRepoImpl();
 
-        Member member = new Member( "Billy Mobby", "Grey", "billie.mobby.grey@hollywood.biz" );
 
 
-        Optional<Member> memberOptional = memberRepo.findByEmail( "simon.toivola@mail.com" );
+        Member member = new Member( "Billie Mobby", "Grey", "billie.mobby.grey@hollywood.biz" );
+        memberRepo.save( member );
 
-        memberOptional.ifPresent( IO::println );
+
+
     }
 }
