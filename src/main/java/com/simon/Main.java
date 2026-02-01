@@ -19,13 +19,11 @@ public class Main  {
 
     void main() {
         MemberRepoImpl memberRepo = new MemberRepoImpl();
+        RentalRepoImpl rentalRepo = new RentalRepoImpl();
 
 
-        Member member = memberRepo.findById( 1L ).get();
+        Rental rental = new Rental( RentalType.BIKE, 1L, LocalDateTime.now(), memberRepo.findById( 1L).get()  );
 
-        member.setFirstName( "Simon" );
-
-        memberRepo.update( member );
 
 
 

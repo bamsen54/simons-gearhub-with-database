@@ -33,6 +33,15 @@ public class Kayak {
         this.status        = status;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public Kayak setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
     public int getNumberOfSeats() {
         return numberOfSeats;
     }

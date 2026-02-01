@@ -1,7 +1,6 @@
 package com.simon.repo;
 
-import com.simon.entity.Member;
-import com.simon.exception.EmailAlreadyTakenException;
+import com.simon.entity.Kayak;
 import com.simon.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -9,29 +8,10 @@ import org.hibernate.Transaction;
 import java.util.List;
 import java.util.Optional;
 
-public class MemberRepoImpl implements MemberRepo {
-
-    public Optional<Member> findByEmail(String email) {
-
-        try ( Session session = HibernateUtil.getSessionFactory().openSession() ) {
-
-            Member member = (Member) session.createQuery("FROM Member WHERE email = :email")
-                                            .setParameter("email", email).uniqueResult();
-
-            return Optional.ofNullable(member);
-        }
-
-        catch ( Exception e ) {
-            e.printStackTrace();
-            return Optional.empty();
-        }
-    }
+public class KayakRepoImpl implements KayakRepo {
 
     @Override
-    public void save(Member entity) {
-
-        if( findByEmail( entity.getEmail()).isPresent() )
-            throw new EmailAlreadyTakenException( "email = " + entity.getEmail() );
+    public void save(Kayak entity) {
 
         Transaction transaction = null;
 
@@ -51,7 +31,7 @@ public class MemberRepoImpl implements MemberRepo {
     }
 
     @Override
-    public void update(Member entity) {
+    public void update(Kayak entity) {
 
         Transaction transaction = null;
 
@@ -71,11 +51,11 @@ public class MemberRepoImpl implements MemberRepo {
     }
 
     @Override
-    public Optional<Member> findById(Long id) {
+    public Optional<Kayak> findById(Long id) {
 
         try ( Session session = HibernateUtil.getSessionFactory().openSession() ) {
-            Member member = session.get(Member.class, id);
-            return Optional.ofNullable( member );
+            Kayak kayak = session.get( Kayak.class, id );
+            return Optional.ofNullable( kayak );
         }
 
         catch ( Exception e ) {
@@ -85,11 +65,11 @@ public class MemberRepoImpl implements MemberRepo {
     }
 
     @Override
-    public List<Member> findAll() {
+    public List<Kayak> findAll() {
 
         try( Session session = HibernateUtil.getSessionFactory().openSession() ) {
 
-            return session.createQuery("from Member").getResultList();
+            return session.createQuery("from Kayak ").getResultList();
         }
 
         catch ( Exception e ) {
@@ -98,7 +78,7 @@ public class MemberRepoImpl implements MemberRepo {
     }
 
     @Override
-    public void delete(Member entity) {
+    public void delete(Kayak entity) {
 
         deleteById( entity.getId() );
     }
@@ -111,10 +91,10 @@ public class MemberRepoImpl implements MemberRepo {
         try( Session session = HibernateUtil.getSessionFactory().openSession() ) {
             transaction = session.beginTransaction();
 
-            Member member = session.get(Member.class, id);
+            Kayak kayak = session.get( Kayak.class, id );
 
-            if( member != null )
-                session.delete( member );
+            if( kayak != null )
+                session.delete( kayak );
 
             transaction.commit();
         }
