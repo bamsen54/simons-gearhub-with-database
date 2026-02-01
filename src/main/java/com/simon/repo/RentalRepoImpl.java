@@ -10,7 +10,6 @@ import java.util.Optional;
 
 public class RentalRepoImpl implements RentalRepo {
 
-
     @Override
     public void save(Rental entity) {
 

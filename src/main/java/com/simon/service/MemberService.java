@@ -3,13 +3,14 @@ package com.simon.service;
 import com.simon.entity.Member;
 import com.simon.exception.EmailAlreadyTakenException;
 import com.simon.exception.RemoveMemberWithActiveRentalsException;
+import com.simon.repo.MemberRepo;
 import com.simon.repo.MemberRepoImpl;
 
 import java.util.Optional;
 
 public class MemberService {
 
-    private MemberRepoImpl memberRepo;
+    private MemberRepo memberRepo;
     private IncomeService incomeService;
 
     public MemberService() {}
