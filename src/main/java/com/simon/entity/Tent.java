@@ -33,6 +33,15 @@ public class Tent {
         this.status   = status;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public Tent setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
     public int getCapacity() {
         return capacity;
     }
