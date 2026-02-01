@@ -53,6 +53,9 @@ public class MemberRepoImpl implements MemberRepo {
     @Override
     public void update(Member entity) {
 
+        if( findByEmail( entity.getEmail()).isPresent() )
+            throw new EmailAlreadyTakenException( "email = " + entity.getEmail() );
+
         Transaction transaction = null;
 
         try( Session session = HibernateUtil.getSessionFactory().openSession() ) {

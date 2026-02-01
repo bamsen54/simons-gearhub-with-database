@@ -1,6 +1,6 @@
 package com.simon.entity;
 
 public enum ItemStatus {
-    AVVAILABLE,
+    AVAILABLE,
     UNAVAILABLE
 }

@@ -11,6 +11,9 @@ public class Kayak {
     private Long id;
 
     @Column
+    private String nama;
+
+    @Column
     private int numberOfSeats;
 
     @Column
@@ -26,7 +29,8 @@ public class Kayak {
     public Kayak() {
     }
 
-    public Kayak(int numberOfSeats, boolean hasRudder, BigDecimal price, ItemStatus status) {
+    public Kayak(String name, int numberOfSeats, boolean hasRudder, BigDecimal price, ItemStatus status) {
+        this.nama          = name;
         this.numberOfSeats = numberOfSeats;
         this.hasRudder     = hasRudder;
         this.price         = price;
@@ -39,6 +43,15 @@ public class Kayak {
 
     public Kayak setId(Long id) {
         this.id = id;
+        return this;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public Kayak setNama(String nama) {
+        this.nama = nama;
         return this;
     }
 
@@ -81,9 +94,10 @@ public class Kayak {
     @Override
     public String toString() {
         return "Kayak{" +
-                "id=" + id +
+                "hasRudder=" + hasRudder +
+                ", id=" + id +
+                ", nama='" + nama + '\'' +
                 ", numberOfSeats=" + numberOfSeats +
-                ", hasRudder=" + hasRudder +
                 ", price=" + price +
                 ", status=" + status +
                 '}';

@@ -11,6 +11,9 @@ public class Tent {
     private Long id;
 
     @Column
+    private String name;
+
+    @Column
     private int capacity;
 
     @Column
@@ -26,7 +29,8 @@ public class Tent {
     public Tent() {
     }
 
-    public Tent(int capacity, double weight, BigDecimal price, ItemStatus status) {
+    public Tent(String name, int capacity, double weight, BigDecimal price, ItemStatus status) {
+        this.name     = name;
         this.capacity = capacity;
         this.weight   = weight;
         this.price    = price;
@@ -39,6 +43,15 @@ public class Tent {
 
     public Tent setId(Long id) {
         this.id = id;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Tent setName(String name) {
+        this.name = name;
         return this;
     }
 
@@ -81,8 +94,9 @@ public class Tent {
     @Override
     public String toString() {
         return "Tent{" +
-                "id=" + id +
-                ", capacity=" + capacity +
+                "capacity=" + capacity +
+                ", id=" + id +
+                ", name='" + name + '\'' +
                 ", weight=" + weight +
                 ", price=" + price +
                 ", status=" + status +

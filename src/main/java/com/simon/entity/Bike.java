@@ -11,6 +11,9 @@ public class Bike {
     private Long id;
 
     @Column
+    private String name;
+
+    @Column
     private String bikeType;
 
     @Column
@@ -26,7 +29,8 @@ public class Bike {
     public Bike() {
     }
 
-    public Bike(String bikeType, int gearCount, BigDecimal price, ItemStatus status) {
+    public Bike(String name, String bikeType, int gearCount, BigDecimal price, ItemStatus status) {
+        this.name      = name;
         this.bikeType  = bikeType;
         this.gearCount = gearCount;
         this.price     = price;
@@ -39,6 +43,15 @@ public class Bike {
 
     public Bike setId(Long id) {
         this.id = id;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Bike setName(String name) {
+        this.name = name;
         return this;
     }
 
@@ -78,11 +91,13 @@ public class Bike {
         return this;
     }
 
+
     @Override
     public String toString() {
         return "Bike{" +
-                "id=" + id +
-                ", bikeType='" + bikeType + '\'' +
+                "bikeType='" + bikeType + '\'' +
+                ", id=" + id +
+                ", name='" + name + '\'' +
                 ", gearCount=" + gearCount +
                 ", price=" + price +
                 ", status=" + status +
