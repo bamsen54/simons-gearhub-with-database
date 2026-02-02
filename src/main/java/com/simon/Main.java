@@ -1,33 +1,46 @@
 package com.simon;
 
-import com.simon.entity.*;
-import com.simon.repo.*;
-import com.simon.service.RentalService;
-import com.simon.util.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import com.simon.entity.Member;
+import com.simon.gui.MemberMenu;
+import com.simon.gui.sideMenu.SideMenu;
+import com.simon.gui.util.CssUtil;
+import com.simon.repo.MemberRepo;
+import com.simon.repo.MemberRepoImpl;
+import javafx.application.Application;
+import javafx.geometry.Side;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class Main  {
+public class Main extends Application {
 
-    void main() {
-        MemberRepoImpl memberRepo = new MemberRepoImpl();
-        RentalRepoImpl rentalRepo = new RentalRepoImpl();
-        BikeRepoImpl bikeRepo = new BikeRepoImpl();
-        KayakRepo kayakRepo = new KayakRepoImpl();
-        TentRepoImpl tentRepo = new TentRepoImpl();
+    @Override
+    public void start(Stage stage) {
 
-        RentalService rentalService = new RentalService( rentalRepo, memberRepo, bikeRepo, kayakRepo, tentRepo );
+        MemberRepo memberRepo = new MemberRepoImpl();
 
-        Member member = memberRepo.findById( 1L ).get();
+        BorderPane root = new BorderPane();
+        root.setId("main-root");
 
-        Rental rental = new Rental( RentalType.BIKE, 1L, LocalDateTime.now(), member );
+        root.setStyle("-fx-background-color: transparent;");
 
-        rentalService.processNewRental(  rental );
+        CssUtil.setCss( root, "/root.css" );
+
+        root.setLeft( SideMenu.get( root, memberRepo ) );
+        root.setCenter( new Label( "Welcome" ) );
+
+        Scene scene = new Scene(root, 1280, 720);
+        scene.setFill( Color.web("#121212") );
+
+
+        stage.setScene(scene);
+        stage.setTitle("GearHub v1.0");
+        stage.resizableProperty().set( false );
+        stage.show();
     }
 }

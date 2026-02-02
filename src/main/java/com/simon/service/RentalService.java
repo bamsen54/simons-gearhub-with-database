@@ -73,7 +73,7 @@ public class RentalService {
     public void processNewRental( Rental rental ) {
 
         if( !isItemAvailable( rental.getRentalType(), rental.getRentalObjectId() ) )
-            throw new RuntimeException( "Rental is not available" );
+            throw new RuntimeException( rental.getRentalType() + " is not available" );
 
         updateItemStatus( rental.getRentalType(), rental.getRentalObjectId(), ItemStatus.UNAVAILABLE );
         rentalRepo.save( rental );
