@@ -6,6 +6,7 @@ import com.simon.gui.sideMenu.SideMenu;
 import com.simon.gui.util.CssUtil;
 import com.simon.repo.MemberRepo;
 import com.simon.repo.MemberRepoImpl;
+import com.simon.service.MemberService;
 import javafx.application.Application;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
@@ -24,6 +25,8 @@ public class Main extends Application {
 
         MemberRepo memberRepo = new MemberRepoImpl();
 
+        MemberService memberService = new MemberService(memberRepo, null);
+
         BorderPane root = new BorderPane();
         root.setId("main-root");
 
@@ -31,7 +34,7 @@ public class Main extends Application {
 
         CssUtil.setCss( root, "/root.css" );
 
-        root.setLeft( SideMenu.get( root, memberRepo ) );
+        root.setLeft( SideMenu.get( root, memberRepo, memberService ) );
         root.setCenter( new Label( "Welcome" ) );
 
         Scene scene = new Scene(root, 1280, 720);

@@ -1,5 +1,7 @@
 package com.simon.entity;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +22,9 @@ public class Member {
     private String email;
 
     @OneToMany( mappedBy = "member", cascade = CascadeType.ALL)
-    List<Rental> rentals = new ArrayList<>();
+    private List<Rental> rentals = new ArrayList<>();
 
-    public Member() {
-
-    }
+    public Member() {}
 
     public Member(String firstName, String lastName, String email) {
         this.firstName = firstName;
@@ -32,46 +32,44 @@ public class Member {
         this.email = email;
     }
 
-    public Long getId() {
-        return id;
+    // --- PROPERTY METODER FÖR JAVAFX (Detta fixar dubbelklicket) ---
+
+    public StringProperty firstNameProperty() {
+        return new SimpleStringProperty(firstName);
     }
 
-    public Member setId(Long id) {
-        this.id = id;
-        return this;
+    public StringProperty lastNameProperty() {
+        return new SimpleStringProperty(lastName);
     }
 
-    public String getFirstName() {
-        return firstName;
+    public StringProperty emailProperty() {
+        return new SimpleStringProperty(email);
     }
 
+    // --- BEHÅLL DINA VANLIGA GETTERS/SETTERS FÖR HIBERNATE ---
+
+    public Long getId() { return id; }
+    public Member setId(Long id) { this.id = id; return this; }
+
+    public String getFirstName() { return firstName; }
     public Member setFirstName(String firstName) {
         this.firstName = firstName;
         return this;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
+    public String getLastName() { return lastName; }
     public Member setLastName(String lastName) {
         this.lastName = lastName;
         return this;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
+    public String getEmail() { return email; }
     public Member setEmail(String email) {
         this.email = email;
         return this;
     }
 
-    public List<Rental> getRentals() {
-        return rentals;
-    }
-
+    public List<Rental> getRentals() { return rentals; }
     public Member setRentals(List<Rental> rentals) {
         this.rentals = rentals;
         return this;
@@ -79,13 +77,6 @@ public class Member {
 
     @Override
     public String toString() {
-
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append( "id = " ). append( this.id ).append( "\n" );
-        stringBuilder.append( "first name = " ). append( this.firstName ).append( "\n" );
-        stringBuilder.append( "last name = " ). append( this.lastName ).append( "\n" );
-        stringBuilder.append( "email = " ). append( this.email ).append( "\n" );
-
-        return stringBuilder.toString();
+        return "Member{id=" + id + ", firstName='" + firstName + "', lastName='" + lastName + "'}";
     }
 }

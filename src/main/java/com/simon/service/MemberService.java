@@ -6,6 +6,7 @@ import com.simon.exception.RemoveMemberWithActiveRentalsException;
 import com.simon.repo.MemberRepo;
 import com.simon.repo.MemberRepoImpl;
 
+import java.util.List;
 import java.util.Optional;
 
 public class MemberService {
@@ -15,51 +16,57 @@ public class MemberService {
 
     public MemberService() {}
 
-    public MemberService(MemberRepoImpl memberRepo, IncomeService incomeService) {
+    public MemberService(MemberRepo memberRepo, IncomeService incomeService) {
         this.memberRepo = memberRepo;
+        this.incomeService = incomeService;
     }
 
-    public void addMember( Member member ) {
-
+    public void addMember(Member member) {
         try {
-            memberRepo.save( member );
-            // todo income service
-        }
-
-        catch( EmailAlreadyTakenException e ) {
+            memberRepo.save(member);
+        } catch (EmailAlreadyTakenException e) {
             e.printStackTrace();
         }
     }
 
-    public void updateMember( Member member ) {
+    public void updateMember(Member member) {
         try {
+            Optional<Member> existingMember = memberRepo.findByEmail(member.getEmail());
+
+            if ( existingMember.isPresent() && !existingMember.get().getId().equals(member.getId() ) )
+                throw new EmailAlreadyTakenException("Email " + member.getEmail() + " is already taken by another member.");
+
             memberRepo.update( member );
         }
 
-        catch( EmailAlreadyTakenException e ) {
-            e.printStackTrace();
+        catch ( EmailAlreadyTakenException e ) {
+            System.err.println( e.getMessage() );
         }
     }
 
-    public Optional<Member> findMemberByEmail(String email ) {
-
-        return memberRepo.findByEmail( email );
+    public Optional<Member> findById(Long id) {
+        return memberRepo.findById(id);
     }
 
-    public boolean memberWithEmailExist( String email ) {
-        return memberRepo.findByEmail( email ).isPresent();
+    public List<Member> findAll() {
+        return memberRepo.findAll();
     }
 
-    public void deleteMember( Member member ) {
+    public Optional<Member> findMemberByEmail(String email) {
+        return memberRepo.findByEmail(email);
+    }
 
-        if( !member.getRentals().isEmpty() )
-            throw new RemoveMemberWithActiveRentalsException( member + " still has active rentals");
+    public boolean memberWithEmailExist(String email) {
+        return memberRepo.findByEmail(email).isPresent();
+    }
+
+    public void deleteMember(Member member) {
+        if (!member.getRentals().isEmpty())
+            throw new RemoveMemberWithActiveRentalsException(member + " still has active rentals");
 
         try {
-            memberRepo.delete( member );
-        }
-
-        catch( Exception e ) {
+            memberRepo.delete(member);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
