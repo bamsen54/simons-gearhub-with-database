@@ -1,12 +1,15 @@
 package com.simon.gui;
 
 import com.simon.entity.Member;
-import com.simon.exception.EmailAlreadyTakenException;
 import com.simon.service.MemberService;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -25,14 +28,16 @@ public class MemberMenu {
         VBox memberMenu = new VBox( 10 );
 
         ObservableList<Member> memberObservable = FXCollections.observableArrayList();
-
+        FilteredList<Member> filteredMembers = new FilteredList<>(memberObservable);
+        SortedList<Member> sortedMembers = new SortedList<>( filteredMembers );
 
         TableView<Member> memberTable = new TableView<>();
         memberTable.setEditable( true );
         memberTable.setFixedCellSize( 50 );
         memberTable.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
 
-        memberTable.setItems( memberObservable);
+        memberTable.setItems( sortedMembers );
+        sortedMembers.comparatorProperty().bind( memberTable.comparatorProperty() );
 
         TableColumn<Member, Long> id = new TableColumn<>("ID");
         id.setCellValueFactory(new PropertyValueFactory<>( "id" ) );
@@ -119,12 +124,12 @@ public class MemberMenu {
 
 
         Thread loadData = new Thread( () -> {
+
             List<Member> members = memberService.findAll();
-
-
 
             Platform.runLater( () -> {
                 memberObservable.setAll( members );
+                memberTable.setPlaceholder(  new Label( "No matches" )  );
             } );
         } );
 
@@ -145,8 +150,6 @@ public class MemberMenu {
         // buttons and search field
         HBox buttonsAndSearchField = new HBox( 10 );
 
-
-
         Button addMemberButton = new Button( "Add Member" );
         addMemberButton.setOnAction( e -> {
             Member newMember = new Member("New Member", "New Member", "mail");
@@ -166,7 +169,30 @@ public class MemberMenu {
             memberTable.refresh();
         } );
 
-        buttonsAndSearchField.getChildren().addAll( addMemberButton, deleteMemberButton );
+
+        Label filterLabel = new Label( "  Filter" );
+        filterLabel.setStyle( "-fx-font-size: 14px; -fx-text-fill: white;" );
+
+        TextField filterField = new TextField();
+
+        filterField.textProperty().addListener( (observable, oldValue, newValue) -> {
+
+            filteredMembers.setPredicate( member -> {
+                if( newValue == null || newValue.trim().isEmpty() )
+                    return true;
+
+                String filter =  newValue.toLowerCase();
+
+                return member.getId().toString().contains( filter ) || member.getFirstName().toLowerCase().contains( filter )
+                                                                    || member.getLastName().toLowerCase().contains( filter )
+                                                                    || member.getEmail().toLowerCase().contains( filter );
+            } );
+        } );
+
+        buttonsAndSearchField.setPadding( new Insets( 10, 10, 10, 10 ) );
+
+        buttonsAndSearchField.setAlignment( Pos.CENTER_LEFT );
+        buttonsAndSearchField.getChildren().addAll( addMemberButton, deleteMemberButton, filterLabel, filterField );
 
         memberMenu.getChildren().addAll( buttonsAndSearchField, memberTable );
 

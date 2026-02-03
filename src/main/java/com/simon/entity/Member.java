@@ -85,4 +85,9 @@ public class Member {
     public String toString() {
         return "Member{id=" + id + ", firstName='" + firstName + "', lastName='" + lastName + "'}";
     }
+
+    public String getSearchString() {
+
+        return this.id + " " + this.firstName + " " + this.lastName + this.email;
+    }
 }
