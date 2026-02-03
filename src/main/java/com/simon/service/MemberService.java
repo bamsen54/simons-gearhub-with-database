@@ -29,7 +29,7 @@ public class MemberService {
         }
     }
 
-    public void updateMember(Member member) {
+    public void updateMember(Member member) throws  EmailAlreadyTakenException {
         try {
             Optional<Member> existingMember = memberRepo.findByEmail(member.getEmail());
 
@@ -40,6 +40,7 @@ public class MemberService {
         }
 
         catch ( EmailAlreadyTakenException e ) {
+            e.printStackTrace();
             System.err.println( e.getMessage() );
         }
     }

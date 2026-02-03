@@ -23,7 +23,7 @@ public class Member {
     @Column( unique = true, length = 64 )
     private String email;
 
-    @OneToMany( mappedBy = "member", cascade = CascadeType.ALL)
+    @OneToMany( mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.EAGER )
     private List<Rental> rentals = new ArrayList<>();
 
     public Member() {}
@@ -52,7 +52,9 @@ public class Member {
 
     // --- BEHÅLL DINA VANLIGA GETTERS/SETTERS FÖR HIBERNATE ---
 
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
     public Member setId(Long id) { this.id = id; return this; }
 
     public String getFirstName() { return firstName; }
