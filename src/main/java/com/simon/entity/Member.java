@@ -1,5 +1,7 @@
 package com.simon.entity;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javax.persistence.*;
@@ -31,19 +33,21 @@ public class Member {
         this.lastName = lastName;
         this.email = email;
     }
-
-    // --- PROPERTY METODER FÖR JAVAFX (Detta fixar dubbelklicket) ---
+    
+    public Long getIdProperty() {
+        return this.id;
+    }
 
     public StringProperty firstNameProperty() {
-        return new SimpleStringProperty(firstName);
+        return new SimpleStringProperty( firstName );
     }
 
     public StringProperty lastNameProperty() {
-        return new SimpleStringProperty(lastName);
+        return new SimpleStringProperty( lastName );
     }
 
     public StringProperty emailProperty() {
-        return new SimpleStringProperty(email);
+        return new SimpleStringProperty( email );
     }
 
     // --- BEHÅLL DINA VANLIGA GETTERS/SETTERS FÖR HIBERNATE ---

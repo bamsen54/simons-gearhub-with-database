@@ -1,97 +1,83 @@
-
 .root {
     -fx-background-color: #121212;
-
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-size: 14px;
 }
 
 #main-root {
     -fx-background-color: #121212;
 }
 
-
-/* =============================================================================
-   GEARHUB DARK THEME - COMPLETE HEADER FIX
-   ============================================================================= */
-
 .table-view {
-    -fx-background-color: #121212;
-    -fx-background-radius: 8;
-    -fx-border-color: #333333;
-    -fx-border-width: 1;
-    -fx-table-cell-border-color: #3a3a3a;
-}
-
-/* 1. Fixar bakgrunden bakom rubrikerna (Tar bort det vita till vänster/höger) */
-.table-view .column-header-background {
-    -fx-background-color: #1a1a1a;
-    -fx-border-color: transparent transparent #5c85d6 transparent;
-    -fx-border-width: 0 0 2 0;
-}
-
-/* 2. Fixar den specifika ytan längst upp till höger/vänster (Corner) */
-.table-view .column-header-background .filler,
-.table-view .corner {
-    -fx-background-color: #1a1a1a;
-}
-
-/* Rubrikerna */
-.table-view .column-header {
     -fx-background-color: transparent;
-    -fx-size: 40;
-    -fx-padding: 0;
-    -fx-border-color: transparent #3a3a3a transparent transparent;
+    -fx-base: #121212;
+    -fx-control-inner-background: #121212;
+    -fx-background-insets: 0;
+    -fx-padding: 0 0 0 15;
+}
+
+.table-view .table-column {
+    -fx-border-color: #2a2a2a; /* FÄRG: Vertikala linjer */
+    -fx-border-width: 0 1 0 0;
+}
+
+.table-row-cell {
+    -fx-cell-size: 30;
+    -fx-background-insets: 0;
+    -fx-background-color: #121212;
+    -fx-border-color: #2a2a2a; /* FÄRG: Horisontella linjer */
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-row-cell:empty {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #181818;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #333333;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #1e1e1e;
+}
+
+.table-view .column-header {
+    -fx-background-color: #1e1e1e;
+    -fx-border-color: #333333; /* FÄRG: Linjer i rubriken */
+    -fx-border-width: 0 1 1 0;
+    -fx-size: 35;
 }
 
 .table-view .column-header .label {
-    -fx-text-fill: #5c85d6;
-    -fx-font-weight: bold;
     -fx-padding: 0 0 0 20;
+    -fx-text-fill: #6085d6;
+    -fx-font-weight: bold;
     -fx-alignment: CENTER_LEFT;
 }
 
-/* Standard Celler */
-.table-view .table-cell {
-    -fx-border-color: transparent #3a3a3a #3a3a3a transparent;
-    -fx-border-width: 0 1 1 0;
-    -fx-padding: 0 20 0 20;
-    -fx-text-fill: #cccccc;
+.table-cell {
+    -fx-padding: 0 0 0 20;
+    -fx-text-fill: #e0e0e0;
     -fx-alignment: CENTER_LEFT;
-}
-
-
-.table-view .table-cell .text-field {
-    -fx-background-color: #1e2a3d;
-    -fx-text-fill: white;
-    -fx-border-color: #5c85d6;
-    -fx-border-width: 1;
-    -fx-background-insets: 0;
-    -fx-padding: 0 5 0 5;
-    -fx-pref-height: 40;
-    -fx-alignment: CENTER_LEFT;
-}
-
-/* Rader */
-.table-view .table-row-cell {
-    -fx-background-color: #121212;
-    -fx-border-color: transparent;
-    -fx-border-width: 0 0 0 4;
-}
-
-.table-view .table-row-cell:odd { -fx-background-color: #181818; }
-.table-view .table-row-cell:hover { -fx-background-color: #1d1d1d; }
-
-.table-view .table-row-cell:selected {
-    -fx-background-color: #1e2a3d;
-    -fx-border-color: #5c85d6;
-}
-
-/* Scrollbar */
-.table-view .virtual-flow .scroll-bar:vertical,
-.table-view .virtual-flow .scroll-bar:horizontal {
+    -fx-border-width: 0;
     -fx-background-color: transparent;
 }
 
-.table-view .virtual-flow .scroll-bar .thumb {
-    -fx-background-color: #333333;
-    -fx-background-radius: 10;
+/* FIXAR FÖRSKJUTNINGEN VID EDITERING */
+.table-cell .text-field {
+    -fx-padding: 0 0 0 0;
+    -fx-background-color: #2a2a2a;
+    -fx-text-fill: white;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+.table-view .filler {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
 }

@@ -28,7 +28,10 @@ public class MemberMenu {
         TableView<Member> memberTable = new TableView<>();
         memberTable.setEditable( true );
         memberTable.setFixedCellSize( 50 );
+        memberTable.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
 
+        TableColumn<Member, Long> id = new TableColumn<>("ID");
+        id.setCellValueFactory(new PropertyValueFactory<>( "id" ) );
 
         TableColumn<Member,String> firstName = new TableColumn<>("First Name");
         firstName.setCellValueFactory( new PropertyValueFactory<>("firstName") );
@@ -36,12 +39,21 @@ public class MemberMenu {
         TableColumn<Member,String> lastName = new TableColumn<>("Last Name");
         lastName.setCellValueFactory( new PropertyValueFactory<>("lastName") );
 
+
+
+
         firstName.setCellFactory( TextFieldTableCell.forTableColumn() );
         firstName.setOnEditCommit( event -> {
             Member member = event.getRowValue();
             member.setFirstName( event.getNewValue() );
             memberService.updateMember( member );
+        } );
 
+        lastName.setCellFactory( TextFieldTableCell.forTableColumn() );
+        lastName.setOnEditCommit( event -> {
+            Member member = event.getRowValue();
+            member.setLastName( event.getNewValue() );
+            memberService.updateMember( member );
         } );
 
         firstName.setId("first-name-column");
@@ -68,7 +80,7 @@ public class MemberMenu {
         loadData.setDaemon( true );
         loadData.start();
 
-        memberTable.getColumns().addAll( firstName, lastName );
+        memberTable.getColumns().addAll( id, firstName, lastName );
 
         memberMenu.getChildren().addAll( memberTable );
 

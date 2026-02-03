@@ -20,7 +20,7 @@ public class SideMenu {
         // Centrerar knappen både vertikalt och horisontellt
         sideMenu.setAlignment(Pos.CENTER);
         sideMenu.setPrefWidth(250);
-        sideMenu.setSpacing(20);
+        sideMenu.setSpacing(5);
 
         // Skapa knappen
         Button memberButton    = new Button("Members" );
