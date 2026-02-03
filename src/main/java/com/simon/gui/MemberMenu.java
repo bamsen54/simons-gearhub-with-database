@@ -33,27 +33,60 @@ public class MemberMenu {
         TableColumn<Member, Long> id = new TableColumn<>("ID");
         id.setCellValueFactory(new PropertyValueFactory<>( "id" ) );
 
-        TableColumn<Member,String> firstName = new TableColumn<>("First Name");
-        firstName.setCellValueFactory( new PropertyValueFactory<>("firstName") );
+        TableColumn<Member,String> firstName = new TableColumn<>( "First Name" );
+        firstName.setCellValueFactory( new PropertyValueFactory<>( "firstName" ) );
 
-        TableColumn<Member,String> lastName = new TableColumn<>("Last Name");
-        lastName.setCellValueFactory( new PropertyValueFactory<>("lastName") );
+        TableColumn<Member,String> lastName = new TableColumn<>( "Last Name" );
+        lastName.setCellValueFactory( new PropertyValueFactory<>( "lastName" ) );
 
+        TableColumn<Member,String> email = new TableColumn<>("Email");
+        email.setCellValueFactory( new PropertyValueFactory<>( "email" ) );
 
+        id.setPrefWidth( 60 );
+        firstName.setPrefWidth(100);
+        lastName.setPrefWidth(100);
+        email.setPrefWidth(250);
 
+        id.setMinWidth( 50 );
 
         firstName.setCellFactory( TextFieldTableCell.forTableColumn() );
         firstName.setOnEditCommit( event -> {
-            Member member = event.getRowValue();
-            member.setFirstName( event.getNewValue() );
-            memberService.updateMember( member );
+            if (event.getNewValue() != null && !event.getNewValue().trim().isEmpty() ) {
+                Member member = event.getRowValue();
+                member.setFirstName( event.getNewValue().trim() );
+                memberService.updateMember( member );
+            }
+
+            else {
+                memberTable.refresh();
+            }
         } );
 
         lastName.setCellFactory( TextFieldTableCell.forTableColumn() );
         lastName.setOnEditCommit( event -> {
-            Member member = event.getRowValue();
-            member.setLastName( event.getNewValue() );
-            memberService.updateMember( member );
+            if (event.getNewValue() != null && !event.getNewValue().trim().isEmpty() ) {
+                Member member = event.getRowValue();
+                member.setLastName( event.getNewValue().trim() );
+                memberService.updateMember( member );
+            }
+
+            else {
+                memberTable.refresh();
+            }
+        } );
+
+        email.setCellFactory( TextFieldTableCell.forTableColumn() );
+        email.setOnEditCommit( event -> {
+            if (event.getNewValue() != null && !event.getNewValue().trim().isEmpty() ) {
+                Member member = event.getRowValue();
+                member.setEmail( event.getNewValue().trim().toLowerCase() );
+                memberService.updateMember( member );
+                memberTable.refresh();
+            }
+
+            else {
+                memberTable.refresh();
+            }
         } );
 
         firstName.setId("first-name-column");
@@ -80,7 +113,7 @@ public class MemberMenu {
         loadData.setDaemon( true );
         loadData.start();
 
-        memberTable.getColumns().addAll( id, firstName, lastName );
+        memberTable.getColumns().addAll( id, firstName, lastName, email );
 
         memberMenu.getChildren().addAll( memberTable );
 
