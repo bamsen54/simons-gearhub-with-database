@@ -8,6 +8,7 @@ module com.simon {
     requires net.bytebuddy;
     requires com.fasterxml.classmate;
     requires java.xml.bind;
+    requires javafx.base;
 
     opens com.simon.entity to org.hibernate.orm.core, javafx.base;
 

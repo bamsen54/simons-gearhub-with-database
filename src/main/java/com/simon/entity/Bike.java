@@ -1,106 +1,105 @@
 package com.simon.entity;
 
+import javafx.beans.property.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
+@Table(name = "bikes")
 public class Bike {
 
-    @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long id;
-
-    @Column
-    private String name;
-
-    @Column
-    private String bikeType;
-
-    @Column
-    private int gearCount;
-
-    @Column
-    BigDecimal price;
-
-    @Enumerated( EnumType.STRING )
-    @Column
-    private ItemStatus status;
+    private final StringProperty name = new SimpleStringProperty();
+    private final StringProperty bikeType = new SimpleStringProperty();
+    private final IntegerProperty gearCount = new SimpleIntegerProperty();
+    private final ObjectProperty<BigDecimal> price = new SimpleObjectProperty<>();
+    private final ObjectProperty<ItemStatus> status = new SimpleObjectProperty<>();
 
     public Bike() {
     }
 
+    // Här är konstruktorn som du vill ha den, men anpassad för Properties
     public Bike(String name, String bikeType, int gearCount, BigDecimal price, ItemStatus status) {
-        this.name      = name;
-        this.bikeType  = bikeType;
-        this.gearCount = gearCount;
-        this.price     = price;
-        this.status    = status;
+        this.name.set(name);
+        this.bikeType.set(bikeType);
+        this.gearCount.set(gearCount);
+        this.price.set(price);
+        this.status.set(status);
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
 
-    public Bike setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
-        return this;
     }
 
+    @Column
     public String getName() {
+        return name.get();
+    }
+
+    public void setName(String name) {
+        this.name.set(name);
+    }
+
+    public StringProperty nameProperty() {
         return name;
     }
 
-    public Bike setName(String name) {
-        this.name = name;
-        return this;
+    @Column
+    public String getBikeType() {
+        return bikeType.get();
     }
 
-    public String getBikeType() {
+    public void setBikeType(String bikeType) {
+        this.bikeType.set(bikeType);
+    }
+
+    public StringProperty bikeTypeProperty() {
         return bikeType;
     }
 
-    public Bike setBikeType(String bikeType) {
-        this.bikeType = bikeType;
-        return this;
+    @Column
+    public int getGearCount() {
+        return gearCount.get();
     }
 
-    public int getGearCount() {
+    public void setGearCount(int gearCount) {
+        this.gearCount.set(gearCount);
+    }
+
+    public IntegerProperty gearCountProperty() {
         return gearCount;
     }
 
-    public Bike setGearCount(int gearCount) {
-        this.gearCount = gearCount;
-        return this;
+    @Column
+    public BigDecimal getPrice() {
+        return price.get();
     }
 
-    public BigDecimal getPrice() {
+    public void setPrice(BigDecimal price) {
+        this.price.set(price);
+    }
+
+    public ObjectProperty<BigDecimal> priceProperty() {
         return price;
     }
 
-    public Bike setPrice(BigDecimal price) {
-        this.price = price;
-        return this;
-    }
-
+    @Enumerated(EnumType.STRING)
+    @Column
     public ItemStatus getStatus() {
+        return status.get();
+    }
+
+    public void setStatus(ItemStatus status) {
+        this.status.set(status);
+    }
+
+    public ObjectProperty<ItemStatus> statusProperty() {
         return status;
-    }
-
-    public Bike setStatus(ItemStatus status) {
-        this.status = status;
-        return this;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Bike{" +
-                "bikeType='" + bikeType + '\'' +
-                ", id=" + id +
-                ", name='" + name + '\'' +
-                ", gearCount=" + gearCount +
-                ", price=" + price +
-                ", status=" + status +
-                '}';
     }
 }

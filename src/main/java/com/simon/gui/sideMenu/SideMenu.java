@@ -1,8 +1,10 @@
 package com.simon.gui.sideMenu;
 
 import com.simon.gui.MemberMenu;
+import com.simon.gui.inventory.InventoryMenu;
 import com.simon.gui.util.CssUtil; // Se till att sökvägen till din CssUtil stämmer
 import com.simon.repo.MemberRepo;
+import com.simon.service.InventoryService;
 import com.simon.service.MemberService;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -12,7 +14,7 @@ import javafx.scene.layout.VBox;
 
 public class SideMenu {
 
-    public static Parent get( BorderPane root, MemberRepo memberRepo, MemberService memberService ) {
+    public static Parent get( BorderPane root, MemberRepo memberRepo, MemberService memberService, InventoryService inventoryService ) {
         // Skapa behållaren för menyn
         VBox sideMenu = new VBox();
         sideMenu.setId("side-menu");
@@ -27,12 +29,17 @@ public class SideMenu {
         Button inventoryButton = new Button("Iventory" );
 
         memberButton.setOnAction( e -> {
-            root.setCenter(MemberMenu.display( memberService ) );
+            root.setCenter( MemberMenu.display( memberService ) );
         } );
 
         // Koppla CSS-klassen från side-menu.css
         memberButton.getStyleClass().add("menu-button");
+
+
         inventoryButton.getStyleClass().add("menu-button");
+        inventoryButton.setOnAction( e -> {
+            root.setCenter( InventoryMenu.display( inventoryService ) );
+        } );
 
         // Lägg till knappen i VBoxen
         sideMenu.getChildren().addAll( memberButton, inventoryButton );

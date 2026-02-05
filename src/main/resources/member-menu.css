@@ -1,0 +1,15 @@
+.crud-button {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #6085d6; /* Exakt samma blå som tabellrubrikerna */
+    -fx-background-color: #1e1e1e; /* Samma bakgrund som rubrikerna */
+    -fx-border-color: #333333;
+    -fx-border-width: 1;
+    -fx-padding: 5 15 5 15;
+    -fx-background-radius: 3;
+    -fx-border-radius: 3;
+}
+
+.crud-button:hover {
+    -fx-background-color: #2a2a2a; /* Lite ljusare vid hover för feedback */
+}

@@ -1,6 +1,7 @@
 package com.simon.gui;
 
 import com.simon.entity.Member;
+import com.simon.gui.util.CssUtil;
 import com.simon.service.MemberService;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
@@ -26,6 +27,7 @@ public class MemberMenu {
     public static Parent display(MemberService memberService) {
 
         VBox memberMenu = new VBox( 10 );
+        CssUtil.setCss( memberMenu, "/member-menu.css" );
 
         ObservableList<Member> memberObservable = FXCollections.observableArrayList();
         FilteredList<Member> filteredMembers = new FilteredList<>(memberObservable);
@@ -122,7 +124,6 @@ public class MemberMenu {
 
         memberTable.setPlaceholder(  spinner  );
 
-
         Thread loadData = new Thread( () -> {
 
             List<Member> members = memberService.findAll();
@@ -169,11 +170,15 @@ public class MemberMenu {
             memberTable.refresh();
         } );
 
+        addMemberButton.getStyleClass().add( "crud-button" );
+        deleteMemberButton.getStyleClass().add( "crud-button" );
 
         Label filterLabel = new Label( "  Filter" );
-        filterLabel.setStyle( "-fx-font-size: 14px; -fx-text-fill: white;" );
+        filterLabel.setStyle( "-fx-font-size: 14px; -fx-text-fill: white;  " );
 
         TextField filterField = new TextField();
+
+        filterField.setStyle( "-fx-background-color: #2d2d2d; -fx-text-fill: white; -fx-border-color: #444444" );
 
         filterField.textProperty().addListener( (observable, oldValue, newValue) -> {
 
@@ -189,13 +194,12 @@ public class MemberMenu {
             } );
         } );
 
-        buttonsAndSearchField.setPadding( new Insets( 10, 10, 10, 10 ) );
+        buttonsAndSearchField.setPadding( new Insets( 10, 10, 3, 10 ) );
 
         buttonsAndSearchField.setAlignment( Pos.CENTER_LEFT );
         buttonsAndSearchField.getChildren().addAll( addMemberButton, deleteMemberButton, filterLabel, filterField );
 
         memberMenu.getChildren().addAll( buttonsAndSearchField, memberTable );
-
 
         return  memberMenu;
     }
