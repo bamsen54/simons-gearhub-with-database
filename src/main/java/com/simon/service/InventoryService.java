@@ -6,9 +6,14 @@ import com.simon.entity.Tent;
 import com.simon.repo.BikeRepo;
 import com.simon.repo.KayakRepo;
 import com.simon.repo.TentRepo;
+import com.simon.util.HibernateUtil;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class InventoryService {
 
@@ -38,4 +43,34 @@ public class InventoryService {
 
         return null;
     }
+
+    public <T> void save(T entity) {
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession() ) {
+            Transaction tx = session.beginTransaction();
+            session.merge(entity);
+            tx.commit();
+        }
+    }
+
+    public <T> void update(T entity) {
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession() ) {
+            Transaction tx = session.beginTransaction();
+            session.merge(entity);
+            tx.commit();
+        }
+    }
+
+    public <T> void delete(T entity) {
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession() ) {
+            Transaction tx = session.beginTransaction();
+            session.delete( entity );
+            tx.commit();
+        }
+    }
+
+
+
 }

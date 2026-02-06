@@ -1,105 +1,109 @@
 package com.simon.entity;
 
+import javafx.beans.property.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
+@Table(name = "tents")
 public class Tent {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column
-    private String name;
-
-    @Column
-    private int capacity;
-
-    @Column
-    private double weight;
-
-    @Column
-    private BigDecimal price;
-
-    @Enumerated(EnumType.STRING)
-    @Column
-    private ItemStatus status;
+    private final StringProperty name = new SimpleStringProperty();
+    private final IntegerProperty capacity = new SimpleIntegerProperty();
+    private final DoubleProperty weight = new SimpleDoubleProperty();
+    private final ObjectProperty<BigDecimal> price = new SimpleObjectProperty<>();
+    private final ObjectProperty<ItemStatus> status = new SimpleObjectProperty<>();
 
     public Tent() {
     }
 
     public Tent(String name, int capacity, double weight, BigDecimal price, ItemStatus status) {
-        this.name     = name;
-        this.capacity = capacity;
-        this.weight   = weight;
-        this.price    = price;
-        this.status   = status;
+        setName(name);
+        setCapacity(capacity);
+        setWeight(weight);
+        setPrice(price);
+        setStatus(status);
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
 
-    public Tent setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
-        return this;
     }
 
+    @Access(AccessType.PROPERTY)
+    @Column(name = "name")
     public String getName() {
+        return name.get();
+    }
+
+    public void setName(String name) {
+        this.name.set(name);
+    }
+
+    public StringProperty nameProperty() {
         return name;
     }
 
-    public Tent setName(String name) {
-        this.name = name;
-        return this;
+    @Access(AccessType.PROPERTY)
+    @Column(name = "capacity")
+    public int getCapacity() {
+        return capacity.get();
     }
 
-    public int getCapacity() {
+    public void setCapacity(int capacity) {
+        this.capacity.set(capacity);
+    }
+
+    public IntegerProperty capacityProperty() {
         return capacity;
     }
 
-    public Tent setCapacity(int capacity) {
-        this.capacity = capacity;
-        return this;
+    @Access(AccessType.PROPERTY)
+    @Column(name = "weight")
+    public double getWeight() {
+        return weight.get();
     }
 
-    public double getWeight() {
+    public void setWeight(double weight) {
+        this.weight.set(weight);
+    }
+
+    public DoubleProperty weightProperty() {
         return weight;
     }
 
-    public Tent setWeight(double weight) {
-        this.weight = weight;
-        return this;
+    @Access(AccessType.PROPERTY)
+    @Column(name = "price")
+    public BigDecimal getPrice() {
+        return price.get();
     }
 
-    public BigDecimal getPrice() {
+    public void setPrice(BigDecimal price) {
+        this.price.set(price);
+    }
+
+    public ObjectProperty<BigDecimal> priceProperty() {
         return price;
     }
 
-    public Tent setPrice(BigDecimal price) {
-        this.price = price;
-        return this;
-    }
-
+    @Access(AccessType.PROPERTY)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     public ItemStatus getStatus() {
+        return status.get();
+    }
+
+    public void setStatus(ItemStatus status) {
+        this.status.set(status);
+    }
+
+    public ObjectProperty<ItemStatus> statusProperty() {
         return status;
-    }
-
-    public Tent setStatus(ItemStatus status) {
-        this.status = status;
-        return this;
-    }
-
-    @Override
-    public String toString() {
-        return "Tent{" +
-                "capacity=" + capacity +
-                ", id=" + id +
-                ", name='" + name + '\'' +
-                ", weight=" + weight +
-                ", price=" + price +
-                ", status=" + status +
-                '}';
     }
 }

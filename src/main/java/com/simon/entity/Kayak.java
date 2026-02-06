@@ -4,14 +4,15 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
+@Table( name = "kayaks" )
 public class Kayak {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String nama;
+    @Column( name = "name" )
+    private String name;
 
     @Column
     private int numberOfSeats;
@@ -30,7 +31,7 @@ public class Kayak {
     }
 
     public Kayak(String name, int numberOfSeats, boolean hasRudder, BigDecimal price, ItemStatus status) {
-        this.nama          = name;
+        this.name          = name;
         this.numberOfSeats = numberOfSeats;
         this.hasRudder     = hasRudder;
         this.price         = price;
@@ -46,12 +47,12 @@ public class Kayak {
         return this;
     }
 
-    public String getNama() {
-        return nama;
+    public String getName() {
+        return name;
     }
 
-    public Kayak setNama(String nama) {
-        this.nama = nama;
+    public Kayak setName(String name) {
+        this.name = name;
         return this;
     }
 
@@ -96,7 +97,7 @@ public class Kayak {
         return "Kayak{" +
                 "hasRudder=" + hasRudder +
                 ", id=" + id +
-                ", nama='" + nama + '\'' +
+                ", nama='" + name + '\'' +
                 ", numberOfSeats=" + numberOfSeats +
                 ", price=" + price +
                 ", status=" + status +

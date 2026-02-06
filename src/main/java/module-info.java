@@ -9,10 +9,14 @@ module com.simon {
     requires com.fasterxml.classmate;
     requires java.xml.bind;
     requires javafx.base;
+    //requires com.simon;
+    requires mysql.connector.j;
+    requires javafx.graphics;
 
     opens com.simon.entity to org.hibernate.orm.core, javafx.base;
 
     opens com.simon to javafx.graphics, org.hibernate.orm.core;
 
     exports com.simon;
+
 }

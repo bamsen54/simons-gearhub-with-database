@@ -4,6 +4,7 @@ import javafx.beans.property.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+
 @Entity
 @Table(name = "bikes")
 public class Bike {

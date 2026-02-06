@@ -142,7 +142,7 @@ public class MemberMenu {
 
         memberMenu.setVgrow( memberTable , Priority.ALWAYS);
 
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(500), memberMenu );
+        FadeTransition fadeIn = new FadeTransition( Duration.millis( 500 ), memberMenu );
 
         fadeIn.setFromValue(0.0);
         fadeIn.setToValue(1.0);
@@ -156,7 +156,7 @@ public class MemberMenu {
             Member newMember = new Member("New Member", "New Member", "mail");
             memberService.addMember(newMember);
 
-            newMember.setEmail("example" + newMember.getId() + "@mail.com");
+            newMember.setEmail( "example" + newMember.getId() + "@mail.com" );
             memberService.updateMember(newMember);
 
             memberObservable.add( newMember );
@@ -165,8 +165,12 @@ public class MemberMenu {
         Button deleteMemberButton = new Button( "Delete Member" );
         deleteMemberButton.setOnAction( e -> {
             Member selectedMember = memberTable.getSelectionModel().getSelectedItem();
+
+            if( selectedMember == null )
+                return;
+
             memberService.deleteMember( selectedMember );
-            updateMemberMenu( memberObservable, memberService );
+            memberObservable.setAll( memberService.findAll() );
             memberTable.refresh();
         } );
 
@@ -202,18 +206,5 @@ public class MemberMenu {
         memberMenu.getChildren().addAll( buttonsAndSearchField, memberTable );
 
         return  memberMenu;
-    }
-
-    public static ObservableList<Member> updateMemberMenu( ObservableList<Member> observableList, MemberService memberService ) {
-
-        observableList.clear();
-
-        List<Member> members = memberService.findAll();
-
-        for( Member member : members ) {
-            observableList.add( member );
-        }
-
-        return observableList;
     }
 }

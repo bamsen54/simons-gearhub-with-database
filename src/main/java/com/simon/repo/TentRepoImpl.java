@@ -66,13 +66,11 @@ public class TentRepoImpl implements TentRepo {
 
     @Override
     public List<Tent> findAll() {
-
         try( Session session = HibernateUtil.getSessionFactory().openSession() ) {
-
-            return session.createQuery("from Tent ").getResultList();
+            return session.createQuery("from Tent", Tent.class).getResultList();
         }
-
         catch ( Exception e ) {
+            e.printStackTrace();
             return List.of();
         }
     }

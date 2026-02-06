@@ -26,7 +26,7 @@ public class SideMenu {
 
         // Skapa knappen
         Button memberButton    = new Button("Members" );
-        Button inventoryButton = new Button("Iventory" );
+        Button inventoryButton = new Button("Inventory" );
 
         memberButton.setOnAction( e -> {
             root.setCenter( MemberMenu.display( memberService ) );
