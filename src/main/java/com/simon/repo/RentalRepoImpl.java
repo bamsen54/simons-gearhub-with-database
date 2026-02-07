@@ -12,21 +12,24 @@ public class RentalRepoImpl implements RentalRepo {
 
     @Override
     public void save(Rental entity) {
-
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
 
-        try( Session session = HibernateUtil.getSessionFactory().openSession() ) {
-
+        try {
             transaction = session.beginTransaction();
-
-            session.persist( entity );
+            session.persist(entity);
             transaction.commit();
         }
 
-        catch ( Exception e ) {
-
-            if( transaction != null )
+        catch (Exception e) {
+            if (transaction != null)
                 transaction.rollback();
+
+            e.printStackTrace();
+        }
+
+        finally {
+            session.close();
         }
     }
 

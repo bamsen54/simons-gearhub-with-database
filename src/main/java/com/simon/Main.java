@@ -5,6 +5,7 @@ import com.simon.gui.util.CssUtil;
 import com.simon.repo.*;
 import com.simon.service.InventoryService;
 import com.simon.service.MemberService;
+import com.simon.service.RentalService;
 import com.simon.util.HibernateUtil;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -21,6 +22,7 @@ public class Main extends Application {
         HibernateUtil.getSessionFactory().openSession();
 
         MemberRepo memberRepo = new MemberRepoImpl();
+        RentalRepo rentalRepo = new RentalRepoImpl();
 
         BikeRepo bikeRepo = new BikeRepoImpl();
         KayakRepo kayakRepo = new KayakRepoImpl();
@@ -28,6 +30,7 @@ public class Main extends Application {
 
         MemberService memberService = new MemberService(memberRepo, null);
         InventoryService inventoryService = new InventoryService( bikeRepo,  kayakRepo, tentRepo );
+        RentalService rentalService = new RentalService( rentalRepo, memberRepo, bikeRepo, kayakRepo, tentRepo );
 
         BorderPane root = new BorderPane();
         root.setId("main-root");
@@ -36,7 +39,7 @@ public class Main extends Application {
 
         CssUtil.setCss( root, "/root.css" );
 
-        root.setLeft( SideMenu.get( root, memberRepo, memberService, inventoryService ) );
+        root.setLeft( SideMenu.get( root, memberRepo, rentalRepo, memberService, inventoryService, rentalService ) );
         root.setCenter( new Label( "Welcome" ) );
 
         Scene scene = new Scene( root, 1366, 768 );

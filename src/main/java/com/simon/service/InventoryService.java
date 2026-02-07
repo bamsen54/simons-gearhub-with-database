@@ -30,6 +30,20 @@ public class InventoryService {
         this.tentRepo  = tentRepo;
     }
 
+    public <T> T findById( Class<T> type, Long id ) {
+
+        if( type == Bike.class )
+            return (T) bikeRepo.findById( id ).get();
+
+        else if(  type == Kayak.class )
+            return (T) kayakRepo.findById( id ).get();
+
+        else if( type == Tent.class )
+            return (T) tentRepo.findById( id ).get();
+
+        return null;
+    }
+
     public <T> List<T> findAll( Class<T> type ) {
 
         if( type == Bike.class )

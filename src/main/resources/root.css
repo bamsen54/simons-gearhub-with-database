@@ -2,53 +2,46 @@
     -fx-background-color: #121212;
     -fx-font-family: "Segoe UI", sans-serif;
     -fx-font-size: 14px;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
 
 #main-root {
     -fx-background-color: #121212;
 }
 
+/* --- TABLE VIEW GRUND --- */
 .table-view {
-    -fx-background-color: transparent;
+    -fx-background-color: #121212;
     -fx-base: #121212;
     -fx-control-inner-background: #121212;
     -fx-background-insets: 0;
-    -fx-padding: 0; /* Ändrad från 0 0 0 15 till 0 */
+    -fx-padding: 0;
+    -fx-border-color: #333333;
+    -fx-border-width: 1;
 }
 
-.table-view .table-column {
-    -fx-border-color: #2a2a2a; /* FÄRG: Vertikala linjer */
-    -fx-border-width: 0 1 0 0;
-}
-
-.table-row-cell {
-    -fx-cell-size: 30;
-    -fx-background-insets: 0;
+/* Tvingar hela innehållsytan att bli mörk */
+.table-view .virtual-flow,
+.table-view .viewport,
+.table-view .filler {
     -fx-background-color: #121212;
-    -fx-border-color: #2a2a2a; /* FÄRG: Horisontella linjer */
-    -fx-border-width: 0 0 1 0;
-}
-
-.table-row-cell:empty {
-    -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
 
-.table-row-cell:odd {
-    -fx-background-color: #181818;
+/* Den lilla rutan längst ner i hörnet vid scroll */
+.table-view .corner {
+    -fx-background-color: #121212;
 }
 
-.table-row-cell:selected {
-    -fx-background-color: #333333;
-}
-
+/* --- KOLUMNER & RUBRIKER --- */
 .table-view .column-header-background {
     -fx-background-color: #1e1e1e;
 }
 
 .table-view .column-header {
     -fx-background-color: #1e1e1e;
-    -fx-border-color: #333333; /* FÄRG: Linjer i rubriken */
+    -fx-border-color: #333333;
     -fx-border-width: 0 1 1 0;
     -fx-size: 35;
 }
@@ -60,6 +53,34 @@
     -fx-alignment: CENTER_LEFT;
 }
 
+.table-view .table-column {
+    -fx-border-color: #2a2a2a;
+    -fx-border-width: 0 1 0 0;
+}
+
+/* --- RADER & CELLER --- */
+.table-row-cell {
+    -fx-cell-size: 30;
+    -fx-background-insets: 0;
+    -fx-background-color: #121212;
+    -fx-border-color: #2a2a2a;
+    -fx-border-width: 0 0 1 0;
+    -fx-text-background-color: white;
+}
+
+.table-row-cell:empty {
+    -fx-background-color: #121212;
+    -fx-border-color: transparent;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #181818;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #333333;
+}
+
 .table-cell {
     -fx-padding: 0 0 0 20;
     -fx-text-fill: #e0e0e0;
@@ -68,15 +89,44 @@
     -fx-background-color: transparent;
 }
 
-.table-cell .text-field {
-    -fx-padding: 0 0 0 0;
-    -fx-background-color: #2a2a2a;
-    -fx-text-fill: white;
-    -fx-background-insets: 0;
-    -fx-background-radius: 0;
+/* --- SCROLLBARS --- */
+.table-view .scroll-bar:vertical,
+.table-view .scroll-bar:horizontal {
+    -fx-background-color: #121212;
 }
 
-.table-view .filler {
-    -fx-background-color: transparent;
-    -fx-border-width: 0;
+.table-view .scroll-bar .track {
+    -fx-background-color: #121212;
+}
+
+.table-view .scroll-bar .thumb {
+    -fx-background-color: #333333;
+    -fx-background-radius: 5;
+}
+
+/* --- KNAPPAR & CHECKBOX --- */
+.crud-button {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #6085d6;
+    -fx-background-color: #1e1e1e;
+    -fx-border-color: #333333;
+    -fx-border-width: 1;
+    -fx-padding: 5 15 5 15;
+    -fx-background-radius: 3;
+    -fx-border-radius: 3;
+}
+
+.crud-button:hover {
+    -fx-background-color: #2a2a2a;
+}
+
+.check-box .box {
+    -fx-background-color: #444444;
+    -fx-border-color: #888888;
+    -fx-border-radius: 2px;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: #6085d6;
 }

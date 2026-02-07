@@ -97,7 +97,7 @@ public class Kayak {
         return "Kayak{" +
                 "hasRudder=" + hasRudder +
                 ", id=" + id +
-                ", nama='" + name + '\'' +
+                ", name='" + name + '\'' +
                 ", numberOfSeats=" + numberOfSeats +
                 ", price=" + price +
                 ", status=" + status +

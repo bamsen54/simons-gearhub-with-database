@@ -83,7 +83,7 @@ public class Member {
 
     @Override
     public String toString() {
-        return "Member{id=" + id + ", firstName='" + firstName + "', lastName='" + lastName + "'}";
+        return this.firstName + " " + this.lastName + " ID(" + this.id + ")";
     }
 
     public String getSearchString() {

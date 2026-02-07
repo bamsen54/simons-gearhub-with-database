@@ -139,7 +139,6 @@ public class MemberMenu {
 
         memberTable.getColumns().addAll( id, firstName, lastName, email );
 
-
         memberMenu.setVgrow( memberTable , Priority.ALWAYS);
 
         FadeTransition fadeIn = new FadeTransition( Duration.millis( 500 ), memberMenu );

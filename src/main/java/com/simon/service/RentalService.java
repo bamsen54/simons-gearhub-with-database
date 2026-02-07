@@ -14,7 +14,7 @@ public class RentalService {
     public RentalService() {
     }
 
-    public RentalService(RentalRepoImpl rentalRepo, MemberRepo memberRepo, BikeRepo bikeRepo,  KayakRepo kayakRepo, TentRepo tentRepo) {
+    public RentalService(RentalRepo rentalRepo, MemberRepo memberRepo, BikeRepo bikeRepo,  KayakRepo kayakRepo, TentRepo tentRepo) {
         this.rentalRepo = rentalRepo;
         this.memberRepo = memberRepo;
         this.bikeRepo   = bikeRepo;
@@ -72,8 +72,8 @@ public class RentalService {
 
     public void processNewRental( Rental rental ) {
 
-        if( !isItemAvailable( rental.getRentalType(), rental.getRentalObjectId() ) )
-            throw new RuntimeException( rental.getRentalType() + " is not available" );
+        //if( !isItemAvailable( rental.getRentalType(), rental.getRentalObjectId() ) )
+            //throw new RuntimeException( rental.getRentalType() + " is not available" );
 
         updateItemStatus( rental.getRentalType(), rental.getRentalObjectId(), ItemStatus.UNAVAILABLE );
         rentalRepo.save( rental );

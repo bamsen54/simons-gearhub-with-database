@@ -1,11 +1,14 @@
 package com.simon.gui.sideMenu;
 
 import com.simon.gui.MemberMenu;
+import com.simon.gui.rental.RentalMenu;
 import com.simon.gui.inventory.InventoryMenu;
 import com.simon.gui.util.CssUtil; // Se till att sökvägen till din CssUtil stämmer
 import com.simon.repo.MemberRepo;
+import com.simon.repo.RentalRepo;
 import com.simon.service.InventoryService;
 import com.simon.service.MemberService;
+import com.simon.service.RentalService;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -14,10 +17,10 @@ import javafx.scene.layout.VBox;
 
 public class SideMenu {
 
-    public static Parent get( BorderPane root, MemberRepo memberRepo, MemberService memberService, InventoryService inventoryService ) {
-        // Skapa behållaren för menyn
+    public static Parent get(BorderPane root, MemberRepo memberRepo, RentalRepo rentalRepo, MemberService memberService, InventoryService inventoryService, RentalService rentalService ) {
+
         VBox sideMenu = new VBox();
-        sideMenu.setId("side-menu");
+        sideMenu.setId( "side-menu" );
 
         // Centrerar knappen både vertikalt och horisontellt
         sideMenu.setAlignment(Pos.CENTER);
@@ -27,25 +30,27 @@ public class SideMenu {
         // Skapa knappen
         Button memberButton    = new Button("Members" );
         Button inventoryButton = new Button("Inventory" );
+        Button rentalButton = new Button( "Rental" );
 
         memberButton.setOnAction( e -> {
             root.setCenter( MemberMenu.display( memberService ) );
         } );
 
-        // Koppla CSS-klassen från side-menu.css
-        memberButton.getStyleClass().add("menu-button");
 
-
-        inventoryButton.getStyleClass().add("menu-button");
         inventoryButton.setOnAction( e -> {
             root.setCenter( InventoryMenu.display( inventoryService ) );
         } );
 
-        // Lägg till knappen i VBoxen
-        sideMenu.getChildren().addAll( memberButton, inventoryButton );
+        rentalButton.setOnAction( e -> {
+            root.setCenter( RentalMenu.display( rentalService, memberService, inventoryService ) );
+        } );
 
-        // Använd din CssUtil för att ladda filen
-        // Den letar nu i src/main/resources/side-menu.css
+        sideMenu.getChildren().addAll( memberButton, inventoryButton, rentalButton );
+
+        memberButton.getStyleClass().add( "menu-button" );
+        inventoryButton.getStyleClass().add( "menu-button" );
+        rentalButton.getStyleClass().add( "menu-button" );
+
         CssUtil.setCss(sideMenu, "/side-menu.css");
 
         return sideMenu;
