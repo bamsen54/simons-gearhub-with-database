@@ -3,6 +3,8 @@ package com.simon.service;
 import com.simon.entity.*;
 import com.simon.repo.*;
 
+import java.util.List;
+
 public class RentalService {
 
     private RentalRepo rentalRepo;
@@ -10,16 +12,18 @@ public class RentalService {
     private BikeRepo bikeRepo;
     private KayakRepo kayakRepo;
     private TentRepo tentRepo;
+    private InventoryService inventoryService;
 
     public RentalService() {
     }
 
-    public RentalService(RentalRepo rentalRepo, MemberRepo memberRepo, BikeRepo bikeRepo,  KayakRepo kayakRepo, TentRepo tentRepo) {
+    public RentalService(RentalRepo rentalRepo, MemberRepo memberRepo, BikeRepo bikeRepo,  KayakRepo kayakRepo, TentRepo tentRepo, InventoryService inventoryService) {
         this.rentalRepo = rentalRepo;
         this.memberRepo = memberRepo;
         this.bikeRepo   = bikeRepo;
         this.kayakRepo  = kayakRepo;
         this.tentRepo   = tentRepo;
+        this.inventoryService = inventoryService;
     }
 
     public Object getItem( RentalType rentalType, Long rentalObjectId ){
@@ -29,6 +33,10 @@ public class RentalService {
             case KAYAK -> kayakRepo.findById( rentalObjectId ).orElse( null );
             case TENT -> tentRepo.findById( rentalObjectId ).orElse( null );
         };
+    }
+
+    public List<Rental> getAllRentals() {
+        return rentalRepo.findAll();
     }
 
     public boolean isItemAvailable( RentalType rentalType, Long rentalObjectId ){
@@ -67,6 +75,34 @@ public class RentalService {
         else if( item instanceof Tent t ) {
             t.setStatus( status );
             tentRepo.update( t );
+        }
+    }
+
+    public void updateRental(Rental rental) {
+        rentalRepo.update(rental);
+
+        if (rental.getReturnDate() != null) {
+            Long itemId = rental.getRentalObjectId();
+
+            if (rental.getRentalType() == RentalType.BIKE) {
+                Bike b = inventoryService.findById(Bike.class, itemId);
+                if (b != null) {
+                    b.setStatus(ItemStatus.AVAILABLE);
+                    inventoryService.update(b);
+                }
+            } else if (rental.getRentalType() == RentalType.KAYAK) {
+                Kayak k = inventoryService.findById(Kayak.class, itemId);
+                if (k != null) {
+                    k.setStatus(ItemStatus.AVAILABLE);
+                    inventoryService.update(k);
+                }
+            } else if (rental.getRentalType() == RentalType.TENT) {
+                Tent t = inventoryService.findById(Tent.class, itemId);
+                if (t != null) {
+                    t.setStatus(ItemStatus.AVAILABLE);
+                    inventoryService.update(t);
+                }
+            }
         }
     }
 

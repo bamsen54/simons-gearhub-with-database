@@ -1,15 +1,48 @@
-.crud-button {
-    -fx-font-size: 16px;
+/* Grunden för hela fönstret */
+.root {
+    -fx-background-color: #121212;
+    -fx-padding: 25;
+}
+
+/* Styla Labels så de poppar */
+.label {
+    -fx-text-fill: #6085d6;
     -fx-font-weight: bold;
-    -fx-text-fill: #6085d6; /* Exakt samma blå som tabellrubrikerna */
-    -fx-background-color: #1e1e1e; /* Samma bakgrund som rubrikerna */
+    -fx-font-size: 13px;
+}
+
+/* COMBO BOX - Den här brukar vara fulast */
+.combo-box {
+    -fx-background-color: #1e1e1e;
     -fx-border-color: #333333;
     -fx-border-width: 1;
-    -fx-padding: 5 15 5 15;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+    -fx-pref-width: 250; /* Gör dem enhetliga i storlek */
+}
+
+.combo-box .label {
+    -fx-text-fill: white; /* Texten i boxen ska vara vit, inte blå */
+    -fx-font-weight: normal;
+}
+
+/* Knapparna från din förra CSS */
+.crud-button {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #6085d6;
+    -fx-background-color: #1e1e1e;
+    -fx-border-color: #333333;
+    -fx-border-width: 1;
+    -fx-padding: 8 20;
     -fx-background-radius: 3;
     -fx-border-radius: 3;
 }
 
 .crud-button:hover {
-    -fx-background-color: #2a2a2a; /* Lite ljusare vid hover för feedback */
+    -fx-background-color: #2a2a2a;
+}
+
+.crud-button:disabled {
+    -fx-opacity: 0.3;
 }

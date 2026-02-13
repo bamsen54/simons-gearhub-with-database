@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table( name = "members" )
 public class Member {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
@@ -50,7 +51,6 @@ public class Member {
         return new SimpleStringProperty( email );
     }
 
-    // --- BEHÅLL DINA VANLIGA GETTERS/SETTERS FÖR HIBERNATE ---
 
     public Long getId() {
         return id;

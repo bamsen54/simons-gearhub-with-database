@@ -30,7 +30,7 @@ public class Main extends Application {
 
         MemberService memberService = new MemberService(memberRepo, null);
         InventoryService inventoryService = new InventoryService( bikeRepo,  kayakRepo, tentRepo );
-        RentalService rentalService = new RentalService( rentalRepo, memberRepo, bikeRepo, kayakRepo, tentRepo );
+        RentalService rentalService = new RentalService( rentalRepo, memberRepo, bikeRepo, kayakRepo, tentRepo, inventoryService );
 
         BorderPane root = new BorderPane();
         root.setId("main-root");
