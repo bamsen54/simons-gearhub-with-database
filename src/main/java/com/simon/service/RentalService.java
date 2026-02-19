@@ -90,6 +90,7 @@ public class RentalService {
             Long itemId = rental.getRentalObjectId();
 
             if (rental.getRentalType() == RentalType.BIKE) {
+
                 Bike b = inventoryService.findById(Bike.class, itemId);
                 if (b != null) {
                     b.setStatus(ItemStatus.AVAILABLE);
@@ -113,18 +114,18 @@ public class RentalService {
 
     public void processNewRental( Rental rental ) {
 
-        //if( !isItemAvailable( rental.getRentalType(), rental.getRentalObjectId() ) )
-            //throw new RuntimeException( rental.getRentalType() + " is not available" );
-
         updateItemStatus( rental.getRentalType(), rental.getRentalObjectId(), ItemStatus.UNAVAILABLE );
         rentalRepo.save( rental );
     }
 
     public void processReturn( Rental rental ) {
 
-        rental.setReturnDate( LocalDateTime.now() );
 
         updateItemStatus( rental.getRentalType(), rental.getRentalObjectId(), ItemStatus.AVAILABLE );
+        rental.setReturnDate( LocalDateTime.now() );
+        rentalRepo.update( rental );
+
+        rental.setReturnDate( LocalDateTime.now() );
 
         BigDecimal pricePerDay = BigDecimal.ZERO;
 
@@ -151,6 +152,8 @@ public class RentalService {
         IO.println( pricePerDay.doubleValue() * billableDays );
         IO.println( billableDays );
 
-        // TODO use incomeservice
+        double amount = pricePerDay.doubleValue() *  billableDays;
+
+        incomeService.addIncome( new Income( BigDecimal.valueOf( amount ), LocalDateTime.now(), rental ) );
     }
 }

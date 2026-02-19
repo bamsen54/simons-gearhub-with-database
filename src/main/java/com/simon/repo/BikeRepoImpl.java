@@ -39,15 +39,15 @@ public class BikeRepoImpl implements BikeRepo {
         try( Session session = HibernateUtil.getSessionFactory().openSession() ) {
 
             transaction = session.beginTransaction();
-
             session.merge( entity );
             transaction.commit();
         }
 
         catch ( Exception e ) {
 
-            if( transaction != null )
+            if( transaction != null ) {
                 transaction.rollback();
+            }
         }
     }
 

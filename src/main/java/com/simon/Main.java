@@ -24,6 +24,7 @@ public class Main extends Application {
 
         MemberRepo memberRepo = new MemberRepoImpl();
         RentalRepo rentalRepo = new RentalRepoImpl();
+        IncomeRepo incomeRepo = new IncomeRepoImpl();
 
         BikeRepo bikeRepo = new BikeRepoImpl();
         KayakRepo kayakRepo = new KayakRepoImpl();
@@ -31,7 +32,7 @@ public class Main extends Application {
 
         MemberService memberService = new MemberService(memberRepo, null);
         InventoryService inventoryService = new InventoryService( bikeRepo,  kayakRepo, tentRepo );
-        IncomeService incomeService = new IncomeService();
+        IncomeService incomeService = new IncomeService( incomeRepo );
         RentalService rentalService = new RentalService( rentalRepo, memberRepo, bikeRepo, kayakRepo, tentRepo, inventoryService, incomeService );
 
         BorderPane root = new BorderPane();

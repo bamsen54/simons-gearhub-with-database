@@ -30,6 +30,9 @@ public class Rental {
     @JoinColumn( name = "member_id" )
     Member member;
 
+    @OneToOne( cascade = CascadeType.ALL )
+    private Income income;
+
     public Rental() {
     }
 
@@ -91,6 +94,15 @@ public class Rental {
 
     public Rental setMember(Member member) {
         this.member = member;
+        return this;
+    }
+
+    public Income getIncome() {
+        return income;
+    }
+
+    public Rental setIncome(Income income) {
+        this.income = income;
         return this;
     }
 

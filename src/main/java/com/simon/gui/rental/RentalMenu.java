@@ -104,7 +104,7 @@ public class RentalMenu {
         Thread loadData = new Thread(() -> {
             List<Rental> rentals = rentalService.getAllRentals();
             Platform.runLater(() -> {
-                rentalObservable.setAll(rentals);
+                rentalObservable.setAll( rentals );
                 rentalTable.setPlaceholder(new Label("No rentals found"));
             });
         });
@@ -120,13 +120,16 @@ public class RentalMenu {
         returnItemButton.setOnAction(e -> {
             Rental retal = rentalTable.getSelectionModel().getSelectedItem();
             rentalService.processReturn( retal );
-        } );
+            rentalObservable.setAll(  rentalService.getAllRentals() );
 
+
+        } );
 
 
         addRentalButton.setOnAction(e -> {
             RentalPopUp.display(rentalService, memberService, inventoryService);
-            rentalObservable.setAll(rentalService.getAllRentals());
+            rentalObservable.setAll(rentalService.getAllRentals() );
+
         });
 
         filterField.textProperty().addListener((obs, oldVal, newVal) -> {
