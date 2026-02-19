@@ -67,7 +67,15 @@ public class KayakTable {
         numberOfSeats.setCellValueFactory( new PropertyValueFactory<>( "numberOfSeats" ) );
 
         TableColumn<Kayak, Boolean> hasRudder = new TableColumn<>( "Rudder" );
-        hasRudder.setCellValueFactory( cellData -> new SimpleBooleanProperty( cellData.getValue().isHasRudder() ) );
+        hasRudder.setCellValueFactory( cellData -> {
+            Kayak kayak = cellData.getValue();
+            SimpleBooleanProperty property = new SimpleBooleanProperty( kayak.isHasRudder() );
+            property.addListener( ( obs, wasSelected, isNowSelected ) -> {
+                kayak.setHasRudder( isNowSelected );
+                inventoryService.update( kayak );
+            } );
+            return property;
+        } );
 
         TableColumn<Kayak, BigDecimal> price = new TableColumn<>( "Daily Price" );
         price.setCellValueFactory( new PropertyValueFactory<>( "price" ) );

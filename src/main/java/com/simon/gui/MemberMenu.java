@@ -1,6 +1,7 @@
 package com.simon.gui;
 
 import com.simon.entity.Member;
+import com.simon.exception.RemoveMemberWithActiveRentalsException;
 import com.simon.gui.util.CssUtil;
 import com.simon.service.MemberService;
 import javafx.animation.FadeTransition;
@@ -168,9 +169,15 @@ public class MemberMenu {
             if( selectedMember == null )
                 return;
 
-            memberService.deleteMember( selectedMember );
-            memberObservable.setAll( memberService.findAll() );
-            memberTable.refresh();
+            try {
+                memberService.deleteMember(selectedMember);
+                memberObservable.setAll(memberService.findAll());
+                memberTable.refresh();
+            }
+
+            catch (RemoveMemberWithActiveRentalsException ex ) {
+                ShowDarkAlert.showDarkAlert( "Error", "Cannot delete member with active rentals" );
+            }
         } );
 
         addMemberButton.getStyleClass().add( "crud-button" );

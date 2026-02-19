@@ -1,0 +1,95 @@
+/* --- GRUNDEN --- */
+.root {
+    -fx-background-color: #121212;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.grid-pane {
+    -fx-padding: 40;
+    -fx-hgap: 25;
+    -fx-vgap: 20;
+    -fx-alignment: center;
+}
+
+/* --- LABELS --- */
+.label {
+    -fx-text-fill: #6085d6; /* Blå används bara här för struktur */
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-min-width: 120px;
+}
+
+/* --- COMBO BOXARNA --- */
+.combo-box {
+    -fx-background-color: #252525;
+    -fx-background-insets: 0;
+    -fx-background-radius: 4;
+    -fx-border-color: #333333;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-min-width: 280px;
+    -fx-pref-height: 35px;
+}
+
+/* Texten i boxen när den är stängd - KRITVIT */
+.combo-box > .list-cell {
+    -fx-text-fill: #ffffff !important;
+    -fx-background-color: transparent;
+}
+
+.combo-box .label {
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: normal;
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 10 0 0;
+}
+
+.combo-box .arrow {
+    -fx-background-color: #6085d6; /* Blå accent på pilen */
+}
+
+/* --- DROPDOWN-LISTAN --- */
+.combo-box-popup .list-view {
+    -fx-background-color: #252525;
+    -fx-border-color: #444444;
+    -fx-border-width: 1;
+}
+
+.combo-box-popup .list-cell {
+    -fx-background-color: #252525;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 8 12;
+}
+
+/* MODERNARE HOVER: Ingen blå text, bara en tydlig grå markering */
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #404040; /* Ljusare grå som tydligt markerar raden */
+    -fx-text-fill: #ffffff;        /* Behåll texten vit för att undvika färg-overload */
+}
+
+/* --- KNAPPAR --- */
+.crud-button {
+    -fx-background-color: #252525;
+    -fx-text-fill: #6085d6;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-border-color: #333333;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-min-width: 110px;
+    -fx-pref-height: 40px;
+    -fx-padding: 5 15;
+}
+
+.crud-button:hover {
+    -fx-background-color: #333333;
+    -fx-border-color: #6085d6;
+}
+
+.crud-button:disabled {
+    -fx-opacity: 0.2;
+}
