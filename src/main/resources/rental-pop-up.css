@@ -1,4 +1,3 @@
-/* --- GRUNDEN --- */
 .root {
     -fx-background-color: #121212;
     -fx-font-family: "Segoe UI", sans-serif;
@@ -11,7 +10,6 @@
     -fx-alignment: center;
 }
 
-/* --- LABELS --- */
 .label {
     -fx-text-fill: #6085d6; /* Blå används bara här för struktur */
     -fx-font-weight: bold;
@@ -19,7 +17,6 @@
     -fx-min-width: 120px;
 }
 
-/* --- COMBO BOXARNA --- */
 .combo-box {
     -fx-background-color: #252525;
     -fx-background-insets: 0;
@@ -31,7 +28,6 @@
     -fx-pref-height: 35px;
 }
 
-/* Texten i boxen när den är stängd - KRITVIT */
 .combo-box > .list-cell {
     -fx-text-fill: #ffffff !important;
     -fx-background-color: transparent;
@@ -64,13 +60,11 @@
     -fx-padding: 8 12;
 }
 
-/* MODERNARE HOVER: Ingen blå text, bara en tydlig grå markering */
 .combo-box-popup .list-cell:hover {
     -fx-background-color: #404040; /* Ljusare grå som tydligt markerar raden */
     -fx-text-fill: #ffffff;        /* Behåll texten vit för att undvika färg-overload */
 }
 
-/* --- KNAPPAR --- */
 .crud-button {
     -fx-background-color: #252525;
     -fx-text-fill: #6085d6;

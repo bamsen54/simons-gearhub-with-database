@@ -42,8 +42,10 @@ public class Main extends Application {
 
         CssUtil.setCss( root, "/root.css" );
 
-        root.setLeft( SideMenu.get( root, memberRepo, rentalRepo, memberService, inventoryService, rentalService ) );
-        root.setCenter( new Label( "Welcome" ) );
+        root.setLeft( SideMenu.get( root, memberRepo, rentalRepo, memberService, inventoryService, rentalService, incomeService ) );
+        Label welcomeLabel = new Label( "Welcome" );
+        welcomeLabel.setStyle( "-fx-font-size: 24px; -fx-text-fill: white" );
+        root.setCenter( welcomeLabel);
 
         Scene scene = new Scene( root, 1366, 768 );
         scene.setFill( Color.web("#121212") );

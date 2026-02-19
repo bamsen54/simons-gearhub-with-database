@@ -1,11 +1,13 @@
 package com.simon.gui.sideMenu;
 
+import com.simon.gui.IncomeMenu;
 import com.simon.gui.MemberMenu;
 import com.simon.gui.rental.RentalMenu;
 import com.simon.gui.inventory.InventoryMenu;
 import com.simon.gui.util.CssUtil;
 import com.simon.repo.MemberRepo;
 import com.simon.repo.RentalRepo;
+import com.simon.service.IncomeService;
 import com.simon.service.InventoryService;
 import com.simon.service.MemberService;
 import com.simon.service.RentalService;
@@ -20,7 +22,7 @@ import java.util.List;
 
 public class SideMenu {
 
-    public static Parent get(BorderPane root, MemberRepo memberRepo, RentalRepo rentalRepo, MemberService memberService, InventoryService inventoryService, RentalService rentalService ) {
+    public static Parent get(BorderPane root, MemberRepo memberRepo, RentalRepo rentalRepo, MemberService memberService, InventoryService inventoryService, RentalService rentalService, IncomeService incomeService ) {
 
         VBox sideMenu = new VBox();
         sideMenu.setId( "side-menu" );
@@ -31,11 +33,12 @@ public class SideMenu {
         Button memberButton    = new Button("Members" );
         Button inventoryButton = new Button("Inventory" );
         Button rentalButton    = new Button( "Rental" );
+        Button incomeButton    = new Button( "Income" );
 
-        List<Button> menuButtons = Arrays.asList(memberButton, inventoryButton, rentalButton);
+        List<Button> menuButtons = Arrays.asList(memberButton, inventoryButton, rentalButton, incomeButton );
 
         memberButton.setOnAction( e -> {
-            setActive(memberButton, menuButtons);
+            setActive(memberButton, menuButtons );
             root.setCenter( MemberMenu.display( memberService ) );
         } );
 
@@ -46,14 +49,20 @@ public class SideMenu {
 
         rentalButton.setOnAction( e -> {
             setActive(rentalButton, menuButtons);
-            root.setCenter( RentalMenu.display( rentalService, memberService, inventoryService ) );
+            root.setCenter( RentalMenu.display( rentalService, memberService, inventoryService) );
         } );
 
-        sideMenu.getChildren().addAll( memberButton, inventoryButton, rentalButton );
+        incomeButton.setOnAction( e -> {
+            setActive(incomeButton, menuButtons);
+            root.setCenter(IncomeMenu.display( incomeService ))  ;
+        } );
+
+        sideMenu.getChildren().addAll( memberButton, inventoryButton, rentalButton, incomeButton );
 
         memberButton.getStyleClass().add( "menu-button" );
         inventoryButton.getStyleClass().add( "menu-button" );
         rentalButton.getStyleClass().add( "menu-button" );
+        incomeButton.getStyleClass().add( "menu-button" );
 
         setActive(memberButton, menuButtons);
 

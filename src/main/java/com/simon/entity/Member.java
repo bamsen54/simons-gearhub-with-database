@@ -1,9 +1,8 @@
 package com.simon.entity;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;

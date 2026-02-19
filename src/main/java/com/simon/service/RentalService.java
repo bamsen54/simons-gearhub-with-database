@@ -149,7 +149,7 @@ public class RentalService {
         double daysWithDecimals = duration.toSeconds() / 86400.0;
         long billableDays = (long) Math.ceil( daysWithDecimals );
 
-        IO.println( pricePerDay.doubleValue() * billableDays );
+        IO.println( pricePerDay.doubleValue() + " " +  billableDays );
         IO.println( billableDays );
 
         double amount = pricePerDay.doubleValue() *  billableDays;

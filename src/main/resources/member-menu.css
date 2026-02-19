@@ -1,17 +1,17 @@
-/* Grunden för hela fönstret */
+
 .root {
     -fx-background-color: #121212;
     -fx-padding: 25;
 }
 
-/* Styla Labels så de poppar */
+
 .label {
     -fx-text-fill: #6085d6;
     -fx-font-weight: bold;
     -fx-font-size: 13px;
 }
 
-/* COMBO BOX - Den här brukar vara fulast */
+
 .combo-box {
     -fx-background-color: #1e1e1e;
     -fx-border-color: #333333;
@@ -26,7 +26,6 @@
     -fx-font-weight: normal;
 }
 
-/* Knapparna från din förra CSS */
 .crud-button {
     -fx-font-size: 14px;
     -fx-font-weight: bold;

@@ -148,7 +148,6 @@ public class MemberMenu {
         fadeIn.setToValue(1.0);
         fadeIn.play();
 
-        // buttons and search field
         HBox buttonsAndSearchField = new HBox( 10 );
 
         Button addMemberButton = new Button( "Add Member" );

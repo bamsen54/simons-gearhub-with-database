@@ -4,22 +4,20 @@ import javafx.beans.property.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-
 @Entity
 @Table(name = "bikes")
 public class Bike {
 
     private Long id;
-    private final StringProperty name = new SimpleStringProperty();
-    private final StringProperty bikeType = new SimpleStringProperty();
-    private final IntegerProperty gearCount = new SimpleIntegerProperty();
-    private final ObjectProperty<BigDecimal> price = new SimpleObjectProperty<>();
-    private final ObjectProperty<ItemStatus> status = new SimpleObjectProperty<>();
+    private StringProperty name = new SimpleStringProperty();
+    private StringProperty bikeType = new SimpleStringProperty();
+    private IntegerProperty gearCount = new SimpleIntegerProperty();
+    private ObjectProperty<BigDecimal> price = new SimpleObjectProperty<>();
+    private ObjectProperty<ItemStatus> status = new SimpleObjectProperty<>();
 
     public Bike() {
     }
 
-    // Här är konstruktorn som du vill ha den, men anpassad för Properties
     public Bike(String name, String bikeType, int gearCount, BigDecimal price, ItemStatus status) {
         this.name.set(name);
         this.bikeType.set(bikeType);

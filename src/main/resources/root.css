@@ -10,7 +10,6 @@
     -fx-background-color: #121212;
 }
 
-/* --- TABLE VIEW GRUND --- */
 .table-view {
     -fx-background-color: #121212;
     -fx-base: #121212;
@@ -21,7 +20,6 @@
     -fx-border-width: 1;
 }
 
-/* Tvingar hela innehållsytan att bli mörk */
 .table-view .virtual-flow,
 .table-view .viewport,
 .table-view .filler {
@@ -29,12 +27,10 @@
     -fx-border-color: transparent;
 }
 
-/* Den lilla rutan längst ner i hörnet vid scroll */
 .table-view .corner {
     -fx-background-color: #121212;
 }
 
-/* --- KOLUMNER & RUBRIKER --- */
 .table-view .column-header-background {
     -fx-background-color: #1e1e1e;
 }
@@ -58,7 +54,6 @@
     -fx-border-width: 0 1 0 0;
 }
 
-/* --- RADER & CELLER --- */
 .table-row-cell {
     -fx-cell-size: 30;
     -fx-background-insets: 0;
@@ -89,7 +84,6 @@
     -fx-background-color: transparent;
 }
 
-/* --- SCROLLBARS --- */
 .table-view .scroll-bar:vertical,
 .table-view .scroll-bar:horizontal {
     -fx-background-color: #121212;
@@ -104,7 +98,6 @@
     -fx-background-radius: 5;
 }
 
-/* --- KNAPPAR & CHECKBOX --- */
 .crud-button {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
