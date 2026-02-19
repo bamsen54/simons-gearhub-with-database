@@ -3,6 +3,9 @@ package com.simon.service;
 import com.simon.entity.*;
 import com.simon.repo.*;
 
+import java.math.BigDecimal;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class RentalService {
@@ -13,17 +16,19 @@ public class RentalService {
     private KayakRepo kayakRepo;
     private TentRepo tentRepo;
     private InventoryService inventoryService;
+    private IncomeService incomeService;
 
     public RentalService() {
     }
 
-    public RentalService(RentalRepo rentalRepo, MemberRepo memberRepo, BikeRepo bikeRepo,  KayakRepo kayakRepo, TentRepo tentRepo, InventoryService inventoryService) {
-        this.rentalRepo = rentalRepo;
-        this.memberRepo = memberRepo;
-        this.bikeRepo   = bikeRepo;
-        this.kayakRepo  = kayakRepo;
-        this.tentRepo   = tentRepo;
+    public RentalService(RentalRepo rentalRepo, MemberRepo memberRepo, BikeRepo bikeRepo,  KayakRepo kayakRepo, TentRepo tentRepo, InventoryService inventoryService, IncomeService incomeService) {
+        this.rentalRepo       = rentalRepo;
+        this.memberRepo       = memberRepo;
+        this.bikeRepo         = bikeRepo;
+        this.kayakRepo        = kayakRepo;
+        this.tentRepo         = tentRepo;
         this.inventoryService = inventoryService;
+        this.incomeService    = incomeService;
     }
 
     public Object getItem( RentalType rentalType, Long rentalObjectId ){
@@ -117,8 +122,35 @@ public class RentalService {
 
     public void processReturn( Rental rental ) {
 
+        rental.setReturnDate( LocalDateTime.now() );
+
         updateItemStatus( rental.getRentalType(), rental.getRentalObjectId(), ItemStatus.AVAILABLE );
 
-        rentalRepo.delete( rental );
+        BigDecimal pricePerDay = BigDecimal.ZERO;
+
+
+        if( rental.getRentalType() == RentalType.BIKE ) {
+            Bike bike   = (Bike) getItem( RentalType.BIKE, rental.getRentalObjectId() );
+            pricePerDay = bike.getPrice();
+        }
+
+        else if( rental.getRentalType() == RentalType.KAYAK ) {
+            Kayak kayak = (Kayak) getItem( RentalType.KAYAK, rental.getRentalObjectId() );
+            pricePerDay = kayak.getPrice();
+        }
+
+        else if( rental.getRentalType() == RentalType.TENT ) {
+            Tent tent   = (Tent) getItem( RentalType.TENT, rental.getRentalObjectId() );
+            pricePerDay = tent.getPrice();
+        }
+
+        Duration duration       = Duration.between( rental.getRentalDate(), rental.getReturnDate() );
+        double daysWithDecimals = duration.toSeconds() / 86400.0;
+        long billableDays = (long) Math.ceil( daysWithDecimals );
+
+        IO.println( pricePerDay.doubleValue() * billableDays );
+        IO.println( billableDays );
+
+        // TODO use incomeservice
     }
 }

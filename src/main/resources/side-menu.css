@@ -1,6 +1,5 @@
 #side-menu {
     -fx-background-color: #1a1a1a;
-    /* En mycket diskret separator (mörkgrå) */
     -fx-border-color: #2d2d2d;
     -fx-border-width: 0 1 0 0;
 }
@@ -9,32 +8,24 @@
     -fx-background-color: transparent;
     -fx-background-insets: 0;
     -fx-background-radius: 0;
-
-    /* Orange text enligt önskemål */
     -fx-text-fill: #ff9800;
     -fx-font-size: 22px;
-    -fx-font-weight: normal; /* Normal vikt för en mer subtil look */
-
+    -fx-font-weight: normal;
     -fx-padding: 12 25;
     -fx-cursor: hand;
     -fx-max-width: infinity;
-    -fx-alignment: CENTER_LEFT; /* Vänsterjusterad text känns ofta bättre med vänster-indikator */
+    -fx-alignment: CENTER_LEFT;
 }
 
 .menu-button:hover {
-    /* Texten blir lite vitare vid hovring för tydlighet */
     -fx-text-fill: #ffb74d;
     -fx-background-color: rgba(255, 255, 255, 0.05);
-
 }
 
-.menu-button:focused {
+/* Ändrat från :focused till .active */
+.menu-button.active {
     -fx-background-color: rgba(255, 255, 255, 0.03);
-
-    /* Indikatorn till vänster: En mjuk blå eller stålgrå färg */
-    -fx-border-color: #5cacee; /* En subtil ljusblå */
-    -fx-border-width: 0 0 0 3; /* Endast 3px bred list till vänster */
-
-    /* Vi ser till att texten fortfarande är orange även vid fokus */
+    -fx-border-color: #5cacee;
+    -fx-border-width: 0 0 0 3;
     -fx-text-fill: #ff9800;
 }

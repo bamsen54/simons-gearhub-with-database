@@ -113,23 +113,16 @@ public class RentalMenu {
 
         rentalTable.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             returnItemButton.setDisable(newVal == null || newVal.getReturnDate() != null);
-        });
+        } );
 
-        Runnable handleReturn = () -> {
-            Rental selected = rentalTable.getSelectionModel().getSelectedItem();
-            if (selected != null && selected.getReturnDate() == null) {
-                selected.setReturnDate(LocalDateTime.now());
-                rentalService.updateRental(selected);
-                rentalTable.refresh();
-                returnItemButton.setDisable(true);
-            }
-        };
 
-        returnItemButton.setOnAction(e -> handleReturn.run());
 
-        rentalTable.setOnMouseClicked(e -> {
-            if (e.getClickCount() == 2) handleReturn.run();
-        });
+        returnItemButton.setOnAction(e -> {
+            Rental retal = rentalTable.getSelectionModel().getSelectedItem();
+            rentalService.processReturn( retal );
+        } );
+
+
 
         addRentalButton.setOnAction(e -> {
             RentalPopUp.display(rentalService, memberService, inventoryService);

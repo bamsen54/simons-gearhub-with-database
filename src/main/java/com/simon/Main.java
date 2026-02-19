@@ -3,6 +3,7 @@ package com.simon;
 import com.simon.gui.sideMenu.SideMenu;
 import com.simon.gui.util.CssUtil;
 import com.simon.repo.*;
+import com.simon.service.IncomeService;
 import com.simon.service.InventoryService;
 import com.simon.service.MemberService;
 import com.simon.service.RentalService;
@@ -30,7 +31,8 @@ public class Main extends Application {
 
         MemberService memberService = new MemberService(memberRepo, null);
         InventoryService inventoryService = new InventoryService( bikeRepo,  kayakRepo, tentRepo );
-        RentalService rentalService = new RentalService( rentalRepo, memberRepo, bikeRepo, kayakRepo, tentRepo, inventoryService );
+        IncomeService incomeService = new IncomeService();
+        RentalService rentalService = new RentalService( rentalRepo, memberRepo, bikeRepo, kayakRepo, tentRepo, inventoryService, incomeService );
 
         BorderPane root = new BorderPane();
         root.setId("main-root");
