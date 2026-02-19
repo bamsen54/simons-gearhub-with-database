@@ -1,6 +1,7 @@
 package com.simon.service;
 
 import com.simon.entity.Member;
+import com.simon.entity.Rental;
 import com.simon.exception.EmailAlreadyTakenException;
 import com.simon.exception.RemoveMemberWithActiveRentalsException;
 import com.simon.repo.MemberRepo;
@@ -62,12 +63,22 @@ public class MemberService {
     }
 
     public void deleteMember(Member member) {
-        if (!member.getRentals().isEmpty())
-            throw new RemoveMemberWithActiveRentalsException(member + " still has active rentals");
+
+
+        List<Rental> rentalsForMember = member.getRentals();
+
+        List<Rental> rentalsForMemberOnlyInActive = rentalsForMember.stream().filter(
+            r -> r.getReturnDate() != null
+        ).toList();
+
+        if( rentalsForMemberOnlyInActive.isEmpty() && !rentalsForMember.isEmpty() )
+            throw new RemoveMemberWithActiveRentalsException( "" );
 
         try {
             memberRepo.delete(member);
-        } catch (Exception e) {
+        }
+
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
