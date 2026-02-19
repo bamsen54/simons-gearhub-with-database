@@ -106,4 +106,9 @@ public class Tent {
     public ObjectProperty<ItemStatus> statusProperty() {
         return status;
     }
+
+    @Override
+    public String toString() {
+        return this.getName() + " " + this.getCapacity() + " " + this.getStatus() + " " + this.getPrice();
+    }
 }

@@ -39,6 +39,7 @@ public class RentalPopUp {
 
         ComboBox<Member> memberComboBox = new ComboBox<>();
         memberComboBox.setItems(memberObservable);
+        memberComboBox.setPrefWidth( 350 );
 
         if( !memberObservable.isEmpty() )
             memberComboBox.getSelectionModel().select( 0 );
@@ -52,6 +53,7 @@ public class RentalPopUp {
         rentalTypesObservable.addAll(RentalType.values());
         ComboBox<RentalType> rentalTypeComboBox = new ComboBox<>();
         rentalTypeComboBox.setItems(rentalTypesObservable);
+        rentalTypeComboBox.setPrefWidth( 350 );
         rentalTypeComboBox.setValue( RentalType.BIKE );
         root.add( rentalTypeComboBox, 1, 1 );
 
@@ -67,6 +69,7 @@ public class RentalPopUp {
 
         ComboBox<Bike> bikeComboBox = new ComboBox<>();
         bikeComboBox.setItems( bikeObservable );
+        bikeComboBox.setPrefWidth( 350 );
 
         if( !bikeObservable.isEmpty() )
             bikeComboBox.getSelectionModel().select(0);
@@ -80,6 +83,7 @@ public class RentalPopUp {
 
         ComboBox<Kayak> kayakComboBox = new ComboBox<>();
         kayakComboBox.setItems(kayakObservable);
+        kayakComboBox.setPrefWidth( 350 );
 
         kayakComboBox.getSelectionModel().select(0);
         root.add(kayakComboBox, 1, 2);

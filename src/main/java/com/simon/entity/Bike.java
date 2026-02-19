@@ -101,4 +101,10 @@ public class Bike {
     public ObjectProperty<ItemStatus> statusProperty() {
         return status;
     }
+
+    @Override
+    public String toString() {
+
+        return this.getName() + " " + this.getBikeType() + " " + this.getGearCount() + " " + this.getPrice();
+    }
 }

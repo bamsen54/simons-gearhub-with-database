@@ -94,13 +94,7 @@ public class Kayak {
 
     @Override
     public String toString() {
-        return "Kayak{" +
-                "hasRudder=" + hasRudder +
-                ", id=" + id +
-                ", name='" + name + '\'' +
-                ", numberOfSeats=" + numberOfSeats +
-                ", price=" + price +
-                ", status=" + status +
-                '}';
+        return this.getName() + " " + this.getNumberOfSeats() + " rudder: " + this.hasRudder + " " + this.getPrice();
+
     }
 }
